@@ -108,6 +108,15 @@ type TriageResult = {
   similarCases: Array<{ id: string; subject: string; type: string; similarity: number | null }>;
 };
 
+type EvaluationSummary = {
+  summary: {
+    llmAndEmbeddings: { completed: number; errors: number; accuracy: number; accuracyWilson95: number[]; macroF1: number };
+    naiveBayesSame300: { completed: number; errors: number; accuracy: number; accuracyWilson95: number[]; macroF1: number };
+    pairedComparison: { baselineCorrectLlmWrong: number; llmCorrectBaselineWrong: number; mcnemarExactPValue: number };
+    modes: Record<string, number>;
+  };
+};
+
 const formatNumber = new Intl.NumberFormat("pt-BR");
 const formatMoney = new Intl.NumberFormat("pt-BR", {
   style: "currency",
@@ -126,7 +135,7 @@ const dimensionLabels: Record<string, string> = {
 const exampleTicket =
   "Fiz a cobrança da assinatura duas vezes este mês e ainda não recebi o estorno. Preciso de ajuda porque o fechamento do cartão é amanhã.";
 
-export default function SupportCockpit({ analysis }: { analysis: Analysis }) {
+export default function SupportCockpit({ analysis, evaluation }: { analysis: Analysis; evaluation: EvaluationSummary }) {
   const [view, setView] = useState<"operation" | "triage" | "method">("operation");
   const [dimension, setDimension] = useState("types");
   const [annualTickets, setAnnualTickets] = useState(analysis.roiDefaults.annualTickets);
@@ -405,6 +414,26 @@ export default function SupportCockpit({ analysis }: { analysis: Analysis }) {
                 <p>{analysis.benchmark.method}. {analysis.benchmark.split}. Sem escolher exemplos manualmente.</p>
               </section>
             </div>
+            <section className="panel eval-panel">
+              <div className="panel-heading">
+                <div><span className="section-kicker">Avaliação em produção</span><h2>O baseline venceu o roteamento generativo</h2></div>
+                <span className="eval-sample">{evaluation.summary.llmAndEmbeddings.completed}/300 chamadas válidas</span>
+              </div>
+              <div className="eval-comparison">
+                <div className="eval-card underperforming">
+                  <span>LLM + embeddings</span>
+                  <strong>{(evaluation.summary.llmAndEmbeddings.accuracy * 100).toFixed(1)}%</strong>
+                  <small>F1 {evaluation.summary.llmAndEmbeddings.macroF1.toFixed(3)} · IC95% {(evaluation.summary.llmAndEmbeddings.accuracyWilson95[0] * 100).toFixed(1)}–{(evaluation.summary.llmAndEmbeddings.accuracyWilson95[1] * 100).toFixed(1)}%</small>
+                </div>
+                <div className="eval-versus">vs.</div>
+                <div className="eval-card baseline">
+                  <span>Naive Bayes nos mesmos 300</span>
+                  <strong>{(evaluation.summary.naiveBayesSame300.accuracy * 100).toFixed(1)}%</strong>
+                  <small>F1 {evaluation.summary.naiveBayesSame300.macroF1.toFixed(3)} · IC95% {(evaluation.summary.naiveBayesSame300.accuracyWilson95[0] * 100).toFixed(1)}–{(evaluation.summary.naiveBayesSame300.accuracyWilson95[1] * 100).toFixed(1)}%</small>
+                </div>
+              </div>
+              <p className="eval-verdict">Em pares discordantes, o baseline acertou sozinho {evaluation.summary.pairedComparison.baselineCorrectLlmWrong} tickets; a camada generativa, {evaluation.summary.pairedComparison.llmCorrectBaselineWrong}. McNemar exato p&lt;10⁻²⁰. Recomendação: baseline para roteamento; LLM para rascunho e assistência sob política.</p>
+            </section>
             <section className="panel class-panel">
               <div className="panel-heading"><div><span className="section-kicker">Onde o modelo erra</span><h2>Desempenho por categoria</h2></div><Gauge size={24} /></div>
               <div className="class-list">

@@ -54,7 +54,7 @@ Antes de abrir o PR, a branch publicada foi revisada com Claude Code. A revisão
 | Prompt injection poderia influenciar os campos usados pela política | Corrigido: flags vêm do texto original; injection é bloqueada antes da API; automação exige intenção de baixo risco independente do modelo |
 | CPF, cartão, telefone e RG escapavam da máscara | Corrigido com padrões brasileiros, Luhn e testes automatizados |
 | Retrieval usava 15 casos e `Resolution` sintética do Dataset 1 | Corrigido para 200 textos do treino do Dataset 2, 25 por categoria; resoluções removidas |
-| Produto entregue não tinha avaliação própria | Protocolo de 300 exemplos estratificados preparado; execução mantida pendente de autorização por consumir API paga |
+| Produto entregue não tinha avaliação própria | 300 exemplos estratificados executados em produção após autorização; 300 respostas válidas e nenhuma falha |
 | Texto dizia η² abaixo de 0,01 | Corrigido para abaixo de 0,015, explicitando Produto=0,01324 |
 | “Maior backlog” ignorava múltiplas comparações | Corrigido com 20 mil simulações: z máximo 2,94, p familiar 0,234; nenhuma concentração defensável |
 | Corpus fixo era re-embedado em toda chamada | Corrigido com cache por instância quente; cold start permanece documentado |
@@ -66,6 +66,17 @@ Antes de abrir o PR, a branch publicada foi revisada com Claude Code. A revisão
 
 A revisão mencionava “16 descrições distintas”. A reprodução mostrou 8.077 descrições completas, mas exatamente 16 **frases iniciais**, com 69,3% no mesmo template. A documentação usa a formulação reproduzida. O controle embaralhado também foi recalculado com a seed declarada, por isso seus números podem diferir da execução do revisor.
 
+### 10. Avaliação em produção e decisão de arquitetura
+
+Após autorização explícita para consumir a API, 300 exemplos estratificados do holdout foram enviados à rota pública com quatro chamadas concorrentes. Todos retornaram `mode: live`; não houve falha de endpoint.
+
+- LLM + embeddings: acurácia 0,410, macro F1 0,421, IC95% 0,356–0,466.
+- Naive Bayes nos mesmos 300: acurácia 0,777, macro F1 0,744, IC95% 0,726–0,820.
+- Pares discordantes: baseline correto/LLM errado em 129; LLM correto/baseline errado em 19.
+- McNemar exato: p=2,77×10⁻²¹.
+
+O resultado foi mantido mesmo sendo desfavorável à arquitetura inicial. Ele muda a recomendação: Naive Bayes deve assumir o roteamento; o LLM fica responsável pelo rascunho e assistência, onde sua flexibilidade é útil e a política humana limita o risco.
+
 ## Onde a IA errou e como corrigi
 
 - **Interpretação dos campos de tempo:** o enunciado favorecia tratá-los como durações. A validação dos valores corrigiu a hipótese.
@@ -73,6 +84,7 @@ A revisão mencionava “16 descrições distintas”. A reprodução mostrou 8.
 - **Causalidade de satisfação:** uma associação descritiva poderia ser apresentada como causa. Foram calculados tamanhos de efeito e o texto foi limitado ao que a amostra suporta.
 - **Automação excessiva:** a primeira arquitetura ainda usava classe, prioridade e confiança sugeridas pelo LLM. Após o review, risco passou a ser derivado do texto original e prompt injection passou a bloquear a chamada externa.
 - **Modo sem credencial:** um protótipo poderia falhar silenciosamente ou simular IA. A interface identifica claramente o modo demonstração.
+- **Complexidade sem ganho:** a hipótese de que LLM + embeddings melhoraria o roteamento foi rejeitada. O baseline foi 36,7 pontos percentuais superior na avaliação pareada.
 
 ## O que adicionei além da geração da IA
 
@@ -97,5 +109,6 @@ A revisão mencionava “16 descrições distintas”. A reprodução mostrou 8.
 9. Deploy e validação da integração LLM + embeddings em produção.
 10. Code review independente com Claude Code.
 11. Hardening de segurança, retrieval, estatística, performance e testes.
+12. Avaliação de 300 chamadas em produção e comparação pareada com o baseline.
 
 O histórico Git complementa esta narrativa com os artefatos e verificações executadas.

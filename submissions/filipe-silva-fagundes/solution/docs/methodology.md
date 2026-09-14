@@ -54,7 +54,16 @@ Tentativas explícitas de prompt injection são bloqueadas antes do envio ao pro
 
 ## Avaliação da camada entregue
 
-O script `scripts/evaluate_live.py` seleciona 300 exemplos estratificados do mesmo holdout, sem cherry-picking, e gera o manifesto de avaliação. A rota devolve `routingTopic` dentro do Structured Output, depois de receber o candidato e os vizinhos dos embeddings; assim, a métrica cobre a camada combinada entregue. A execução contra a rota pública é separada porque consome API paga. Antes do PR final, deve ser rodada com autorização e os resultados — favoráveis ou não — comparados ao baseline.
+O script `scripts/evaluate_live.py` selecionou 300 exemplos estratificados do mesmo holdout, sem cherry-picking, e chamou a rota pública. A rota devolveu `routingTopic` dentro do Structured Output depois de receber o candidato e os vizinhos dos embeddings; a métrica cobre a camada combinada entregue.
+
+| Camada | Acurácia | IC95% Wilson | Macro F1 |
+|---|---:|---:|---:|
+| LLM + embeddings em produção | 0,410 | 0,356–0,466 | 0,421 |
+| Naive Bayes nos mesmos 300 | 0,777 | 0,726–0,820 | 0,744 |
+
+As 300 respostas retornaram `mode: live`; não houve erro de endpoint. Na comparação pareada, o baseline acertou sozinho 129 casos e a camada generativa acertou sozinha 19. O teste exato de McNemar resultou em p=2,77×10⁻²¹. A camada generativa superpredisse `Access` (89 previsões para 45 casos) e `Internal Project` (40 para 13) e subpredisse `Hardware` (30 para 85).
+
+O resultado rejeita o uso do LLM como roteador nesta configuração. A arquitetura recomendada passa a usar o Naive Bayes para `routingTopic` e mantém embeddings para recuperação e o LLM para tipo operacional, prioridade e rascunho, sempre abaixo da política determinística. A avaliação mede classificação na taxonomia do Dataset 2; não mede qualidade do rascunho, ganho de tempo, resolução ou CSAT.
 
 Os limiares são hipóteses de piloto. Devem ser calibrados por categoria e custo do erro.
 

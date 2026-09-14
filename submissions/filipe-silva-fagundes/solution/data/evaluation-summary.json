@@ -1,0 +1,273 @@
+{
+  "summarizedAt": "2026-09-14T16:21:14.225728+00:00",
+  "endpoint": "https://sinal-002.vercel.app/api/triage",
+  "dataset": "300 tickets do holdout estratificado do Dataset 2",
+  "models": {
+    "llm": "produção (verificado separadamente: gpt-5.4-mini-2026-03-17)",
+    "embeddings": "text-embedding-3-small",
+    "baseline": "Multinomial Naive Bayes"
+  },
+  "summary": {
+    "llmAndEmbeddings": {
+      "requested": 300,
+      "completed": 300,
+      "errors": 0,
+      "accuracy": 0.41,
+      "accuracyWilson95": [
+        0.356,
+        0.466
+      ],
+      "macroF1": 0.421,
+      "perClass": [
+        {
+          "label": "Access",
+          "precision": 0.371,
+          "recall": 0.733,
+          "f1": 0.493,
+          "support": 45
+        },
+        {
+          "label": "Administrative rights",
+          "precision": 0.12,
+          "recall": 0.273,
+          "f1": 0.167,
+          "support": 11
+        },
+        {
+          "label": "HR Support",
+          "precision": 0.675,
+          "recall": 0.391,
+          "f1": 0.495,
+          "support": 69
+        },
+        {
+          "label": "Hardware",
+          "precision": 0.8,
+          "recall": 0.282,
+          "f1": 0.417,
+          "support": 85
+        },
+        {
+          "label": "Internal Project",
+          "precision": 0.25,
+          "recall": 0.769,
+          "f1": 0.377,
+          "support": 13
+        },
+        {
+          "label": "Miscellaneous",
+          "precision": 0.164,
+          "recall": 0.205,
+          "f1": 0.182,
+          "support": 44
+        },
+        {
+          "label": "Purchase",
+          "precision": 0.846,
+          "recall": 0.688,
+          "f1": 0.759,
+          "support": 16
+        },
+        {
+          "label": "Storage",
+          "precision": 0.75,
+          "recall": 0.353,
+          "f1": 0.48,
+          "support": 17
+        }
+      ],
+      "confusion": {
+        "Access": {
+          "Miscellaneous": 3,
+          "Access": 33,
+          "Internal Project": 4,
+          "Purchase": 1,
+          "HR Support": 2,
+          "Administrative rights": 2
+        },
+        "Administrative rights": {
+          "Access": 5,
+          "Miscellaneous": 3,
+          "Administrative rights": 3
+        },
+        "HR Support": {
+          "HR Support": 27,
+          "Miscellaneous": 14,
+          "Access": 18,
+          "Internal Project": 3,
+          "Administrative rights": 5,
+          "Hardware": 2
+        },
+        "Hardware": {
+          "Access": 20,
+          "Hardware": 24,
+          "Miscellaneous": 22,
+          "Administrative rights": 5,
+          "Internal Project": 9,
+          "HR Support": 4,
+          "Storage": 1
+        },
+        "Internal Project": {
+          "Internal Project": 10,
+          "Miscellaneous": 3
+        },
+        "Miscellaneous": {
+          "Miscellaneous": 9,
+          "Access": 5,
+          "Internal Project": 14,
+          "Administrative rights": 4,
+          "Purchase": 1,
+          "HR Support": 7,
+          "Hardware": 3,
+          "Storage": 1
+        },
+        "Purchase": {
+          "Purchase": 11,
+          "Administrative rights": 3,
+          "Hardware": 1,
+          "Miscellaneous": 1
+        },
+        "Storage": {
+          "Storage": 6,
+          "Administrative rights": 3,
+          "Access": 8
+        }
+      }
+    },
+    "naiveBayesSame300": {
+      "requested": 300,
+      "completed": 300,
+      "errors": 0,
+      "accuracy": 0.777,
+      "accuracyWilson95": [
+        0.726,
+        0.82
+      ],
+      "macroF1": 0.744,
+      "perClass": [
+        {
+          "label": "Access",
+          "precision": 0.76,
+          "recall": 0.844,
+          "f1": 0.8,
+          "support": 45
+        },
+        {
+          "label": "Administrative rights",
+          "precision": 0.583,
+          "recall": 0.636,
+          "f1": 0.609,
+          "support": 11
+        },
+        {
+          "label": "HR Support",
+          "precision": 0.819,
+          "recall": 0.855,
+          "f1": 0.837,
+          "support": 69
+        },
+        {
+          "label": "Hardware",
+          "precision": 0.865,
+          "recall": 0.753,
+          "f1": 0.805,
+          "support": 85
+        },
+        {
+          "label": "Internal Project",
+          "precision": 0.615,
+          "recall": 0.615,
+          "f1": 0.615,
+          "support": 13
+        },
+        {
+          "label": "Miscellaneous",
+          "precision": 0.674,
+          "recall": 0.659,
+          "f1": 0.667,
+          "support": 44
+        },
+        {
+          "label": "Purchase",
+          "precision": 0.765,
+          "recall": 0.812,
+          "f1": 0.788,
+          "support": 16
+        },
+        {
+          "label": "Storage",
+          "precision": 0.789,
+          "recall": 0.882,
+          "f1": 0.833,
+          "support": 17
+        }
+      ],
+      "confusion": {
+        "Access": {
+          "Access": 38,
+          "Administrative rights": 1,
+          "Miscellaneous": 4,
+          "Internal Project": 1,
+          "Storage": 1
+        },
+        "Administrative rights": {
+          "Hardware": 3,
+          "Administrative rights": 7,
+          "Access": 1
+        },
+        "HR Support": {
+          "HR Support": 59,
+          "Miscellaneous": 3,
+          "Purchase": 1,
+          "Storage": 1,
+          "Hardware": 1,
+          "Access": 2,
+          "Internal Project": 1,
+          "Administrative rights": 1
+        },
+        "Hardware": {
+          "Hardware": 64,
+          "Administrative rights": 2,
+          "Access": 5,
+          "Storage": 2,
+          "Miscellaneous": 4,
+          "HR Support": 4,
+          "Purchase": 3,
+          "Internal Project": 1
+        },
+        "Internal Project": {
+          "HR Support": 1,
+          "Internal Project": 8,
+          "Hardware": 3,
+          "Miscellaneous": 1
+        },
+        "Miscellaneous": {
+          "Miscellaneous": 29,
+          "HR Support": 7,
+          "Hardware": 2,
+          "Access": 4,
+          "Internal Project": 2
+        },
+        "Purchase": {
+          "Miscellaneous": 2,
+          "Purchase": 13,
+          "HR Support": 1
+        },
+        "Storage": {
+          "Storage": 15,
+          "Hardware": 1,
+          "Administrative rights": 1
+        }
+      }
+    },
+    "pairedComparison": {
+      "baselineCorrectLlmWrong": 129,
+      "llmCorrectBaselineWrong": 19,
+      "mcnemarExactPValue": 2.7684751815989e-21,
+      "interpretation": "A diferença favorece o baseline no mesmo conjunto; o teste exato usa apenas pares discordantes."
+    },
+    "modes": {
+      "live": 300
+    }
+  }
+}

@@ -8,7 +8,7 @@
 
 ## Executive Summary
 
-Construí o **Sinal**, uma aplicação web que combina diagnóstico operacional, política de automação, simulador de capacidade e uma bancada de triagem com LLM e embeddings. A principal descoberta foi uma limitação estrutural: 49,3% dos tickets fechados registram a resolução antes da primeira resposta e o dataset não contém a criação do ticket. Por isso, o produto bloqueia métricas de SLA que seriam enganosas e concentra a primeira fase em triagem assistida, um caso que pode ser validado com 47.837 tickets rotulados. Um baseline reproduzível atingiu 76,9% de acurácia em 9.569 tickets de teste; a recomendação é pilotar IA como copiloto e liberar automação somente em casos de baixo risco e alta confiança.
+Construí o **Sinal**, uma aplicação web que combina diagnóstico operacional, política de automação, simulador de capacidade e uma bancada de triagem com LLM e embeddings. A principal descoberta foi uma limitação estrutural: 49,3% dos tickets fechados registram a resolução antes da primeira resposta e o dataset não contém a criação do ticket. Por isso, o produto bloqueia métricas de SLA que seriam enganosas. Um baseline reproduzível atingiu 76,9% de acurácia no holdout completo. Em 300 tickets estratificados enviados à rota pública, a camada LLM + embeddings atingiu 41,0%, contra 77,7% do Naive Bayes nos mesmos exemplos. A decisão recomendada é usar o modelo simples para roteamento e reservar o LLM para redação e assistência sob política humana.
 
 > **Aplicação pública:** [sinal-002.vercel.app](https://sinal-002.vercel.app)
 
@@ -38,6 +38,7 @@ O protótipo usa os dois datasets de maneira complementar:
 | Rótulos operacionais sem sinal defensável | Texto × tipo: V=0,0346; p=0,9746 | Não inferir gargalo por canal, tipo ou prioridade nesta amostra |
 | Classificação é viável, mas não perfeita | 76,9% de acurácia e macro F1 0,766 | Usar confiança, abstention e revisão humana |
 | Direitos administrativos são o maior risco do baseline | F1 0,650 | Exigir revisão humana ou limiar mais alto nessa categoria |
+| LLM não justifica o roteamento | 41,0% vs. 77,7% do baseline nos mesmos 300 tickets | Baseline roteia; LLM redige e assiste |
 
 Foram testadas as 80 combinações de canal × tipo × prioridade. O maior desvio observado (z=2,94) é compatível com acaso após considerar a família de testes (p simulado=0,234; 20 mil cenários). Status também é independente de canal (V=0,0139; p=0,771), tipo (p=0,339) e prioridade (p=0,227). Portanto, a amostra não sustenta a narrativa de um gargalo específico.
 
@@ -112,7 +113,7 @@ Mais detalhes em [metodologia](./docs/methodology.md), [arquitetura](./docs/arch
 
 1. Instrumentar criação, primeira resposta, resolução, reabertura, transferência e tempo ativo de agente.
 2. Rodar um piloto de quatro semanas com 10% da fila e grupo de controle.
-3. Começar no modo assistido; medir acurácia por classe, cobertura, override, tempo economizado e incidentes.
+3. Usar o Naive Bayes para roteamento e manter o LLM no modo assistido para rascunhos; medir override, tempo e incidentes.
 4. Liberar automação por política, nunca apenas pela classe prevista.
 5. Monitorar drift, custo por ticket e erros de alto risco antes de ampliar cobertura.
 
@@ -122,7 +123,8 @@ Mais detalhes em [metodologia](./docs/methodology.md), [arquitetura](./docs/arch
 - Não existe timestamp de criação e os timestamps restantes são inconsistentes.
 - A satisfação só existe em tickets fechados e não permite conclusão causal.
 - Os datasets têm taxonomias e contextos diferentes; não há chave para cruzamento linha a linha.
-- O baseline estatístico é uma referência transparente. O protocolo de avaliação da camada LLM + embeddings está preparado; a execução de 300 chamadas foi deixada pendente por consumir API paga e deve ser autorizada antes do PR.
+- A avaliação de 300 tickets mede `routingTopic` na taxonomia do Dataset 2; não mede a qualidade textual dos rascunhos nem resultados operacionais reais.
+- O IC95% da camada LLM + embeddings foi 35,6%–46,6%; o do baseline nos mesmos exemplos, 72,6%–82,0%. A diferença pareada favoreceu o baseline (129 acertos exclusivos contra 19; McNemar exato p=2,77×10⁻²¹).
 - O cenário de ROI depende de premissas editáveis e não substitui um experimento operacional.
 
 ## Process Log — Como usei IA
@@ -138,6 +140,7 @@ O registro completo está em [process-log/README.md](./process-log/README.md). O
 - [x] Aplicação funcional e responsiva
 - [x] Integração pública com LLM e embeddings validada ao vivo
 - [x] Code review independente com Claude Code e correções registradas
+- [x] Avaliação da rota pública em 300 exemplos estratificados, sem erros de execução
 - [x] Link público — publicado na Vercel
 - [ ] Gravação curta do fluxo — recomendada antes do PR final
 

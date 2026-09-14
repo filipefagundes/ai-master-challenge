@@ -40,4 +40,6 @@ O Dataset 2 e o Dataset 1 não são combinados por `join`. A integração ocorre
 
 ## Evolução para produção
 
-O protótipo mantém os vetores fixos em cache no escopo da função: em instâncias quentes, cada ticket gera apenas o embedding da consulta; em cold start, o lote fixo é recalculado uma vez. O próximo passo de produção é pré-calcular esses vetores e armazená-los em pgvector ou vector store, com filtro por produto, política, validade e tenant. Também seriam necessários autenticação, rate limiting distribuído, telemetria, avaliação contínua e uma base de conhecimento aprovada.
+O protótipo mantém os vetores fixos em cache no escopo da função: em instâncias quentes, cada ticket gera apenas o embedding da consulta; em cold start, o lote fixo é recalculado uma vez. O próximo passo de produção é pré-calcular esses vetores e armazená-los em pgvector ou vector store, com filtro por produto, política, validade e tenant.
+
+A avaliação de 300 tickets mostrou que o roteamento LLM + embeddings (41,0%) perde para o Naive Bayes nos mesmos exemplos (77,7%). Portanto, a arquitetura-alvo deve atribuir `routingTopic` ao baseline e restringir o LLM a enriquecimento e redação assistida. Essa mudança reduz custo e melhora a qualidade medida. Também seriam necessários autenticação, rate limiting distribuído, telemetria, avaliação contínua e uma base de conhecimento aprovada.

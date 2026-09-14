@@ -1,0 +1,2375 @@
+{
+  "summarizedAt": "2026-09-14T16:21:14.225728+00:00",
+  "endpoint": "https://sinal-002.vercel.app/api/triage",
+  "dataset": "300 tickets do holdout estratificado do Dataset 2",
+  "models": {
+    "llm": "produção (verificado separadamente: gpt-5.4-mini-2026-03-17)",
+    "embeddings": "text-embedding-3-small",
+    "baseline": "Multinomial Naive Bayes"
+  },
+  "summary": {
+    "llmAndEmbeddings": {
+      "requested": 300,
+      "completed": 300,
+      "errors": 0,
+      "accuracy": 0.41,
+      "accuracyWilson95": [
+        0.356,
+        0.466
+      ],
+      "macroF1": 0.421,
+      "perClass": [
+        {
+          "label": "Access",
+          "precision": 0.371,
+          "recall": 0.733,
+          "f1": 0.493,
+          "support": 45
+        },
+        {
+          "label": "Administrative rights",
+          "precision": 0.12,
+          "recall": 0.273,
+          "f1": 0.167,
+          "support": 11
+        },
+        {
+          "label": "HR Support",
+          "precision": 0.675,
+          "recall": 0.391,
+          "f1": 0.495,
+          "support": 69
+        },
+        {
+          "label": "Hardware",
+          "precision": 0.8,
+          "recall": 0.282,
+          "f1": 0.417,
+          "support": 85
+        },
+        {
+          "label": "Internal Project",
+          "precision": 0.25,
+          "recall": 0.769,
+          "f1": 0.377,
+          "support": 13
+        },
+        {
+          "label": "Miscellaneous",
+          "precision": 0.164,
+          "recall": 0.205,
+          "f1": 0.182,
+          "support": 44
+        },
+        {
+          "label": "Purchase",
+          "precision": 0.846,
+          "recall": 0.688,
+          "f1": 0.759,
+          "support": 16
+        },
+        {
+          "label": "Storage",
+          "precision": 0.75,
+          "recall": 0.353,
+          "f1": 0.48,
+          "support": 17
+        }
+      ],
+      "confusion": {
+        "Access": {
+          "Miscellaneous": 3,
+          "Access": 33,
+          "Internal Project": 4,
+          "Purchase": 1,
+          "HR Support": 2,
+          "Administrative rights": 2
+        },
+        "Administrative rights": {
+          "Access": 5,
+          "Miscellaneous": 3,
+          "Administrative rights": 3
+        },
+        "HR Support": {
+          "HR Support": 27,
+          "Miscellaneous": 14,
+          "Access": 18,
+          "Internal Project": 3,
+          "Administrative rights": 5,
+          "Hardware": 2
+        },
+        "Hardware": {
+          "Access": 20,
+          "Hardware": 24,
+          "Miscellaneous": 22,
+          "Administrative rights": 5,
+          "Internal Project": 9,
+          "HR Support": 4,
+          "Storage": 1
+        },
+        "Internal Project": {
+          "Internal Project": 10,
+          "Miscellaneous": 3
+        },
+        "Miscellaneous": {
+          "Miscellaneous": 9,
+          "Access": 5,
+          "Internal Project": 14,
+          "Administrative rights": 4,
+          "Purchase": 1,
+          "HR Support": 7,
+          "Hardware": 3,
+          "Storage": 1
+        },
+        "Purchase": {
+          "Purchase": 11,
+          "Administrative rights": 3,
+          "Hardware": 1,
+          "Miscellaneous": 1
+        },
+        "Storage": {
+          "Storage": 6,
+          "Administrative rights": 3,
+          "Access": 8
+        }
+      }
+    },
+    "naiveBayesSame300": {
+      "requested": 300,
+      "completed": 300,
+      "errors": 0,
+      "accuracy": 0.777,
+      "accuracyWilson95": [
+        0.726,
+        0.82
+      ],
+      "macroF1": 0.744,
+      "perClass": [
+        {
+          "label": "Access",
+          "precision": 0.76,
+          "recall": 0.844,
+          "f1": 0.8,
+          "support": 45
+        },
+        {
+          "label": "Administrative rights",
+          "precision": 0.583,
+          "recall": 0.636,
+          "f1": 0.609,
+          "support": 11
+        },
+        {
+          "label": "HR Support",
+          "precision": 0.819,
+          "recall": 0.855,
+          "f1": 0.837,
+          "support": 69
+        },
+        {
+          "label": "Hardware",
+          "precision": 0.865,
+          "recall": 0.753,
+          "f1": 0.805,
+          "support": 85
+        },
+        {
+          "label": "Internal Project",
+          "precision": 0.615,
+          "recall": 0.615,
+          "f1": 0.615,
+          "support": 13
+        },
+        {
+          "label": "Miscellaneous",
+          "precision": 0.674,
+          "recall": 0.659,
+          "f1": 0.667,
+          "support": 44
+        },
+        {
+          "label": "Purchase",
+          "precision": 0.765,
+          "recall": 0.812,
+          "f1": 0.788,
+          "support": 16
+        },
+        {
+          "label": "Storage",
+          "precision": 0.789,
+          "recall": 0.882,
+          "f1": 0.833,
+          "support": 17
+        }
+      ],
+      "confusion": {
+        "Access": {
+          "Access": 38,
+          "Administrative rights": 1,
+          "Miscellaneous": 4,
+          "Internal Project": 1,
+          "Storage": 1
+        },
+        "Administrative rights": {
+          "Hardware": 3,
+          "Administrative rights": 7,
+          "Access": 1
+        },
+        "HR Support": {
+          "HR Support": 59,
+          "Miscellaneous": 3,
+          "Purchase": 1,
+          "Storage": 1,
+          "Hardware": 1,
+          "Access": 2,
+          "Internal Project": 1,
+          "Administrative rights": 1
+        },
+        "Hardware": {
+          "Hardware": 64,
+          "Administrative rights": 2,
+          "Access": 5,
+          "Storage": 2,
+          "Miscellaneous": 4,
+          "HR Support": 4,
+          "Purchase": 3,
+          "Internal Project": 1
+        },
+        "Internal Project": {
+          "HR Support": 1,
+          "Internal Project": 8,
+          "Hardware": 3,
+          "Miscellaneous": 1
+        },
+        "Miscellaneous": {
+          "Miscellaneous": 29,
+          "HR Support": 7,
+          "Hardware": 2,
+          "Access": 4,
+          "Internal Project": 2
+        },
+        "Purchase": {
+          "Miscellaneous": 2,
+          "Purchase": 13,
+          "HR Support": 1
+        },
+        "Storage": {
+          "Storage": 15,
+          "Hardware": 1,
+          "Administrative rights": 1
+        }
+      }
+    },
+    "pairedComparison": {
+      "baselineCorrectLlmWrong": 129,
+      "llmCorrectBaselineWrong": 19,
+      "mcnemarExactPValue": 2.7684751815989e-21,
+      "interpretation": "A diferença favorece o baseline no mesmo conjunto; o teste exato usa apenas pares discordantes."
+    },
+    "modes": {
+      "live": 300
+    }
+  },
+  "results": [
+    {
+      "id": "EVAL-01697739",
+      "expected": "HR Support",
+      "predicted": "HR Support",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-016B5340",
+      "expected": "Access",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "Access"
+    },
+    {
+      "id": "EVAL-0199231F",
+      "expected": "Access",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Access"
+    },
+    {
+      "id": "EVAL-020617CE",
+      "expected": "Purchase",
+      "predicted": "Purchase",
+      "mode": "live",
+      "baselinePrediction": "Miscellaneous"
+    },
+    {
+      "id": "EVAL-03510069",
+      "expected": "Miscellaneous",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "Miscellaneous"
+    },
+    {
+      "id": "EVAL-04E15C2C",
+      "expected": "Miscellaneous",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Miscellaneous"
+    },
+    {
+      "id": "EVAL-07CF214F",
+      "expected": "Access",
+      "predicted": "Internal Project",
+      "mode": "live",
+      "baselinePrediction": "Access"
+    },
+    {
+      "id": "EVAL-07FCF8A8",
+      "expected": "HR Support",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-08708698",
+      "expected": "Hardware",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-0B60CD68",
+      "expected": "Internal Project",
+      "predicted": "Internal Project",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-0B9EEE95",
+      "expected": "Administrative rights",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-0CD9A901",
+      "expected": "Miscellaneous",
+      "predicted": "Internal Project",
+      "mode": "live",
+      "baselinePrediction": "Miscellaneous"
+    },
+    {
+      "id": "EVAL-0DB95A8F",
+      "expected": "Access",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Administrative rights"
+    },
+    {
+      "id": "EVAL-0F14E302",
+      "expected": "Hardware",
+      "predicted": "Hardware",
+      "mode": "live",
+      "baselinePrediction": "Administrative rights"
+    },
+    {
+      "id": "EVAL-0F32A757",
+      "expected": "Internal Project",
+      "predicted": "Internal Project",
+      "mode": "live",
+      "baselinePrediction": "Internal Project"
+    },
+    {
+      "id": "EVAL-0F805715",
+      "expected": "Access",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Access"
+    },
+    {
+      "id": "EVAL-0FC29A4D",
+      "expected": "Access",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Access"
+    },
+    {
+      "id": "EVAL-0FE99B1A",
+      "expected": "Access",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Access"
+    },
+    {
+      "id": "EVAL-10ED27B8",
+      "expected": "Hardware",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-11722A6B",
+      "expected": "Hardware",
+      "predicted": "Administrative rights",
+      "mode": "live",
+      "baselinePrediction": "Access"
+    },
+    {
+      "id": "EVAL-11BC574D",
+      "expected": "Hardware",
+      "predicted": "Internal Project",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-14C0A76E",
+      "expected": "Purchase",
+      "predicted": "Purchase",
+      "mode": "live",
+      "baselinePrediction": "Purchase"
+    },
+    {
+      "id": "EVAL-153EB58B",
+      "expected": "Access",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Miscellaneous"
+    },
+    {
+      "id": "EVAL-165E3E4F",
+      "expected": "Miscellaneous",
+      "predicted": "Administrative rights",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-16E71336",
+      "expected": "HR Support",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-179579F1",
+      "expected": "Access",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Access"
+    },
+    {
+      "id": "EVAL-186CCA30",
+      "expected": "Miscellaneous",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-1A98CF7A",
+      "expected": "Miscellaneous",
+      "predicted": "Internal Project",
+      "mode": "live",
+      "baselinePrediction": "Miscellaneous"
+    },
+    {
+      "id": "EVAL-1B43BC94",
+      "expected": "HR Support",
+      "predicted": "Internal Project",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-1B7FB639",
+      "expected": "Hardware",
+      "predicted": "Hardware",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-1BA5C27F",
+      "expected": "Hardware",
+      "predicted": "Administrative rights",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-1BCB51E3",
+      "expected": "HR Support",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-1D6FEC3C",
+      "expected": "Hardware",
+      "predicted": "Internal Project",
+      "mode": "live",
+      "baselinePrediction": "Storage"
+    },
+    {
+      "id": "EVAL-1F1A4CC5",
+      "expected": "Storage",
+      "predicted": "Storage",
+      "mode": "live",
+      "baselinePrediction": "Storage"
+    },
+    {
+      "id": "EVAL-1FCD40C6",
+      "expected": "Access",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Access"
+    },
+    {
+      "id": "EVAL-20CF7793",
+      "expected": "Miscellaneous",
+      "predicted": "Administrative rights",
+      "mode": "live",
+      "baselinePrediction": "Miscellaneous"
+    },
+    {
+      "id": "EVAL-20E37B95",
+      "expected": "Miscellaneous",
+      "predicted": "Purchase",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-216F98D5",
+      "expected": "Storage",
+      "predicted": "Administrative rights",
+      "mode": "live",
+      "baselinePrediction": "Storage"
+    },
+    {
+      "id": "EVAL-22368F7D",
+      "expected": "Access",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Access"
+    },
+    {
+      "id": "EVAL-22731B80",
+      "expected": "Access",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "Internal Project"
+    },
+    {
+      "id": "EVAL-22945F07",
+      "expected": "Miscellaneous",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Miscellaneous"
+    },
+    {
+      "id": "EVAL-22D2410F",
+      "expected": "Hardware",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-22D7F74E",
+      "expected": "HR Support",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-2302FC72",
+      "expected": "HR Support",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-24086B15",
+      "expected": "Miscellaneous",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "Miscellaneous"
+    },
+    {
+      "id": "EVAL-24B9E11B",
+      "expected": "HR Support",
+      "predicted": "HR Support",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-24D8442D",
+      "expected": "Hardware",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-25A7DF54",
+      "expected": "Hardware",
+      "predicted": "Hardware",
+      "mode": "live",
+      "baselinePrediction": "Miscellaneous"
+    },
+    {
+      "id": "EVAL-26730653",
+      "expected": "Hardware",
+      "predicted": "Administrative rights",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-26FC20BF",
+      "expected": "Hardware",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-2786783F",
+      "expected": "Hardware",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Access"
+    },
+    {
+      "id": "EVAL-27B016B4",
+      "expected": "HR Support",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-27D9E930",
+      "expected": "HR Support",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-2A159324",
+      "expected": "HR Support",
+      "predicted": "Administrative rights",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-2A1BF591",
+      "expected": "Storage",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Storage"
+    },
+    {
+      "id": "EVAL-2AA00832",
+      "expected": "Hardware",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-2BB744A8",
+      "expected": "Miscellaneous",
+      "predicted": "Administrative rights",
+      "mode": "live",
+      "baselinePrediction": "Access"
+    },
+    {
+      "id": "EVAL-2D198E7D",
+      "expected": "HR Support",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Miscellaneous"
+    },
+    {
+      "id": "EVAL-2D3D3054",
+      "expected": "Internal Project",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-2E86B5BF",
+      "expected": "HR Support",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-2F2601C4",
+      "expected": "Miscellaneous",
+      "predicted": "HR Support",
+      "mode": "live",
+      "baselinePrediction": "Miscellaneous"
+    },
+    {
+      "id": "EVAL-2F589517",
+      "expected": "Miscellaneous",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-32509691",
+      "expected": "Miscellaneous",
+      "predicted": "HR Support",
+      "mode": "live",
+      "baselinePrediction": "Miscellaneous"
+    },
+    {
+      "id": "EVAL-32FCAB08",
+      "expected": "Internal Project",
+      "predicted": "Internal Project",
+      "mode": "live",
+      "baselinePrediction": "Internal Project"
+    },
+    {
+      "id": "EVAL-3350ADCD",
+      "expected": "Hardware",
+      "predicted": "Hardware",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-33F798FA",
+      "expected": "Hardware",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-3402BE6E",
+      "expected": "HR Support",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-381F4421",
+      "expected": "Miscellaneous",
+      "predicted": "HR Support",
+      "mode": "live",
+      "baselinePrediction": "Miscellaneous"
+    },
+    {
+      "id": "EVAL-391DB326",
+      "expected": "Internal Project",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "Internal Project"
+    },
+    {
+      "id": "EVAL-3948A1F3",
+      "expected": "HR Support",
+      "predicted": "HR Support",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-3B21BD6B",
+      "expected": "HR Support",
+      "predicted": "HR Support",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-3C55DFE5",
+      "expected": "Access",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Access"
+    },
+    {
+      "id": "EVAL-3C67B515",
+      "expected": "Miscellaneous",
+      "predicted": "HR Support",
+      "mode": "live",
+      "baselinePrediction": "Miscellaneous"
+    },
+    {
+      "id": "EVAL-3DAEBA8D",
+      "expected": "Hardware",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-3EAB8089",
+      "expected": "Hardware",
+      "predicted": "Internal Project",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-3ED404EC",
+      "expected": "Storage",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Storage"
+    },
+    {
+      "id": "EVAL-42A41F0D",
+      "expected": "Miscellaneous",
+      "predicted": "HR Support",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-452A6B82",
+      "expected": "Internal Project",
+      "predicted": "Internal Project",
+      "mode": "live",
+      "baselinePrediction": "Internal Project"
+    },
+    {
+      "id": "EVAL-456368C0",
+      "expected": "Hardware",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-47361A30",
+      "expected": "Miscellaneous",
+      "predicted": "Internal Project",
+      "mode": "live",
+      "baselinePrediction": "Access"
+    },
+    {
+      "id": "EVAL-4737AB8D",
+      "expected": "HR Support",
+      "predicted": "HR Support",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-48041B50",
+      "expected": "Hardware",
+      "predicted": "Hardware",
+      "mode": "live",
+      "baselinePrediction": "Purchase"
+    },
+    {
+      "id": "EVAL-4890B536",
+      "expected": "HR Support",
+      "predicted": "Hardware",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-48BF6573",
+      "expected": "HR Support",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-4AAD7B98",
+      "expected": "Hardware",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-4D8C3CF8",
+      "expected": "Hardware",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-4F5434D8",
+      "expected": "Hardware",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Storage"
+    },
+    {
+      "id": "EVAL-5015C7E8",
+      "expected": "Hardware",
+      "predicted": "Hardware",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-50825DBF",
+      "expected": "Hardware",
+      "predicted": "Hardware",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-511D5BE8",
+      "expected": "Purchase",
+      "predicted": "Purchase",
+      "mode": "live",
+      "baselinePrediction": "Purchase"
+    },
+    {
+      "id": "EVAL-5127567E",
+      "expected": "Hardware",
+      "predicted": "Hardware",
+      "mode": "live",
+      "baselinePrediction": "Purchase"
+    },
+    {
+      "id": "EVAL-5161BF54",
+      "expected": "Purchase",
+      "predicted": "Administrative rights",
+      "mode": "live",
+      "baselinePrediction": "Purchase"
+    },
+    {
+      "id": "EVAL-521E4DEE",
+      "expected": "Miscellaneous",
+      "predicted": "Administrative rights",
+      "mode": "live",
+      "baselinePrediction": "Miscellaneous"
+    },
+    {
+      "id": "EVAL-53A3C12D",
+      "expected": "Miscellaneous",
+      "predicted": "Internal Project",
+      "mode": "live",
+      "baselinePrediction": "Miscellaneous"
+    },
+    {
+      "id": "EVAL-54D7DD51",
+      "expected": "Hardware",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-553B6304",
+      "expected": "Access",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Access"
+    },
+    {
+      "id": "EVAL-55769166",
+      "expected": "HR Support",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-56299B1B",
+      "expected": "Access",
+      "predicted": "Internal Project",
+      "mode": "live",
+      "baselinePrediction": "Miscellaneous"
+    },
+    {
+      "id": "EVAL-5776B829",
+      "expected": "Miscellaneous",
+      "predicted": "Internal Project",
+      "mode": "live",
+      "baselinePrediction": "Miscellaneous"
+    },
+    {
+      "id": "EVAL-588EF743",
+      "expected": "Hardware",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "Administrative rights"
+    },
+    {
+      "id": "EVAL-5997E5FE",
+      "expected": "HR Support",
+      "predicted": "Administrative rights",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-5BC1409F",
+      "expected": "Administrative rights",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "Administrative rights"
+    },
+    {
+      "id": "EVAL-5BD183F8",
+      "expected": "HR Support",
+      "predicted": "Hardware",
+      "mode": "live",
+      "baselinePrediction": "Purchase"
+    },
+    {
+      "id": "EVAL-5D68C882",
+      "expected": "Miscellaneous",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-5F543AA3",
+      "expected": "Storage",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Storage"
+    },
+    {
+      "id": "EVAL-6156721E",
+      "expected": "Hardware",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-6175A3E6",
+      "expected": "HR Support",
+      "predicted": "HR Support",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-6180BF43",
+      "expected": "Access",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Access"
+    },
+    {
+      "id": "EVAL-61894C98",
+      "expected": "Hardware",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-61B966D1",
+      "expected": "Storage",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Storage"
+    },
+    {
+      "id": "EVAL-61FC96F9",
+      "expected": "HR Support",
+      "predicted": "HR Support",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-62124F54",
+      "expected": "HR Support",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-6273800B",
+      "expected": "HR Support",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-662D40E8",
+      "expected": "HR Support",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-682566A4",
+      "expected": "Hardware",
+      "predicted": "Internal Project",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-69622260",
+      "expected": "Administrative rights",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Administrative rights"
+    },
+    {
+      "id": "EVAL-6BC6B1F0",
+      "expected": "Hardware",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-6F2058B9",
+      "expected": "HR Support",
+      "predicted": "Administrative rights",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-6FD285CF",
+      "expected": "Storage",
+      "predicted": "Storage",
+      "mode": "live",
+      "baselinePrediction": "Storage"
+    },
+    {
+      "id": "EVAL-6FF3C2E7",
+      "expected": "Miscellaneous",
+      "predicted": "Hardware",
+      "mode": "live",
+      "baselinePrediction": "Access"
+    },
+    {
+      "id": "EVAL-7047BCE1",
+      "expected": "Hardware",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-704BCFF5",
+      "expected": "Miscellaneous",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "Miscellaneous"
+    },
+    {
+      "id": "EVAL-716638BC",
+      "expected": "Internal Project",
+      "predicted": "Internal Project",
+      "mode": "live",
+      "baselinePrediction": "Internal Project"
+    },
+    {
+      "id": "EVAL-717D22AC",
+      "expected": "Access",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Access"
+    },
+    {
+      "id": "EVAL-7270A60D",
+      "expected": "HR Support",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-729E5D87",
+      "expected": "Hardware",
+      "predicted": "Administrative rights",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-732D21D8",
+      "expected": "Hardware",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Access"
+    },
+    {
+      "id": "EVAL-7342AFB6",
+      "expected": "HR Support",
+      "predicted": "HR Support",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-75849965",
+      "expected": "Hardware",
+      "predicted": "Hardware",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-76602233",
+      "expected": "Internal Project",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "Miscellaneous"
+    },
+    {
+      "id": "EVAL-7672E9B7",
+      "expected": "Access",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Access"
+    },
+    {
+      "id": "EVAL-78BFE357",
+      "expected": "Hardware",
+      "predicted": "Hardware",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-78C891E8",
+      "expected": "HR Support",
+      "predicted": "HR Support",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-7901A170",
+      "expected": "Access",
+      "predicted": "Internal Project",
+      "mode": "live",
+      "baselinePrediction": "Access"
+    },
+    {
+      "id": "EVAL-7944B9A8",
+      "expected": "Internal Project",
+      "predicted": "Internal Project",
+      "mode": "live",
+      "baselinePrediction": "Internal Project"
+    },
+    {
+      "id": "EVAL-7996920D",
+      "expected": "Miscellaneous",
+      "predicted": "Hardware",
+      "mode": "live",
+      "baselinePrediction": "Miscellaneous"
+    },
+    {
+      "id": "EVAL-79E7F94D",
+      "expected": "HR Support",
+      "predicted": "HR Support",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-7A21D136",
+      "expected": "HR Support",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Storage"
+    },
+    {
+      "id": "EVAL-7B3DB5D7",
+      "expected": "Miscellaneous",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "Miscellaneous"
+    },
+    {
+      "id": "EVAL-7BC4A42C",
+      "expected": "HR Support",
+      "predicted": "HR Support",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-7C4C0166",
+      "expected": "Hardware",
+      "predicted": "HR Support",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-7C7913D3",
+      "expected": "Purchase",
+      "predicted": "Hardware",
+      "mode": "live",
+      "baselinePrediction": "Purchase"
+    },
+    {
+      "id": "EVAL-7D76A43F",
+      "expected": "Storage",
+      "predicted": "Storage",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-7FC7FFEE",
+      "expected": "Access",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Access"
+    },
+    {
+      "id": "EVAL-8015F4B3",
+      "expected": "Hardware",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "Access"
+    },
+    {
+      "id": "EVAL-802F042A",
+      "expected": "HR Support",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-8050946A",
+      "expected": "Access",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Access"
+    },
+    {
+      "id": "EVAL-8074B000",
+      "expected": "Miscellaneous",
+      "predicted": "Internal Project",
+      "mode": "live",
+      "baselinePrediction": "Miscellaneous"
+    },
+    {
+      "id": "EVAL-80CE760C",
+      "expected": "Hardware",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "Internal Project"
+    },
+    {
+      "id": "EVAL-80E45F48",
+      "expected": "HR Support",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-813885AC",
+      "expected": "Hardware",
+      "predicted": "Administrative rights",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-81928531",
+      "expected": "Access",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Access"
+    },
+    {
+      "id": "EVAL-82192287",
+      "expected": "Hardware",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-838EDEC8",
+      "expected": "Internal Project",
+      "predicted": "Internal Project",
+      "mode": "live",
+      "baselinePrediction": "Internal Project"
+    },
+    {
+      "id": "EVAL-83912C28",
+      "expected": "Hardware",
+      "predicted": "Internal Project",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-83B1F3A6",
+      "expected": "HR Support",
+      "predicted": "HR Support",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-83C1A2D4",
+      "expected": "Miscellaneous",
+      "predicted": "Internal Project",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-846ADCA4",
+      "expected": "Access",
+      "predicted": "Purchase",
+      "mode": "live",
+      "baselinePrediction": "Access"
+    },
+    {
+      "id": "EVAL-875E8FEC",
+      "expected": "HR Support",
+      "predicted": "HR Support",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-88698E67",
+      "expected": "Hardware",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-886F5695",
+      "expected": "Access",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "Access"
+    },
+    {
+      "id": "EVAL-8B0326E5",
+      "expected": "Hardware",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-8B3E20DA",
+      "expected": "Miscellaneous",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "Miscellaneous"
+    },
+    {
+      "id": "EVAL-8E6C66B4",
+      "expected": "Administrative rights",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Access"
+    },
+    {
+      "id": "EVAL-8E92E28F",
+      "expected": "Hardware",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-8FD764B2",
+      "expected": "Hardware",
+      "predicted": "HR Support",
+      "mode": "live",
+      "baselinePrediction": "Miscellaneous"
+    },
+    {
+      "id": "EVAL-8FDFF88D",
+      "expected": "Hardware",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "Miscellaneous"
+    },
+    {
+      "id": "EVAL-9165DFEC",
+      "expected": "Miscellaneous",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "Miscellaneous"
+    },
+    {
+      "id": "EVAL-91F6272C",
+      "expected": "HR Support",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-92B9D514",
+      "expected": "Miscellaneous",
+      "predicted": "Internal Project",
+      "mode": "live",
+      "baselinePrediction": "Miscellaneous"
+    },
+    {
+      "id": "EVAL-9326C872",
+      "expected": "HR Support",
+      "predicted": "HR Support",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-94076049",
+      "expected": "Miscellaneous",
+      "predicted": "Internal Project",
+      "mode": "live",
+      "baselinePrediction": "Miscellaneous"
+    },
+    {
+      "id": "EVAL-947753BA",
+      "expected": "Purchase",
+      "predicted": "Purchase",
+      "mode": "live",
+      "baselinePrediction": "Purchase"
+    },
+    {
+      "id": "EVAL-95851307",
+      "expected": "Miscellaneous",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "Miscellaneous"
+    },
+    {
+      "id": "EVAL-961F8780",
+      "expected": "Access",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Access"
+    },
+    {
+      "id": "EVAL-964ECFF6",
+      "expected": "Access",
+      "predicted": "HR Support",
+      "mode": "live",
+      "baselinePrediction": "Miscellaneous"
+    },
+    {
+      "id": "EVAL-96C63D35",
+      "expected": "Hardware",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Access"
+    },
+    {
+      "id": "EVAL-97E08010",
+      "expected": "Miscellaneous",
+      "predicted": "Hardware",
+      "mode": "live",
+      "baselinePrediction": "Miscellaneous"
+    },
+    {
+      "id": "EVAL-98238435",
+      "expected": "Hardware",
+      "predicted": "HR Support",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-9930EA4C",
+      "expected": "Access",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Access"
+    },
+    {
+      "id": "EVAL-997998AB",
+      "expected": "Hardware",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-997C4F97",
+      "expected": "Access",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Access"
+    },
+    {
+      "id": "EVAL-9A0A26AD",
+      "expected": "Purchase",
+      "predicted": "Purchase",
+      "mode": "live",
+      "baselinePrediction": "Purchase"
+    },
+    {
+      "id": "EVAL-9B3CC016",
+      "expected": "Hardware",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-9BB3F0B7",
+      "expected": "HR Support",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "Miscellaneous"
+    },
+    {
+      "id": "EVAL-9C05EAB0",
+      "expected": "Storage",
+      "predicted": "Storage",
+      "mode": "live",
+      "baselinePrediction": "Storage"
+    },
+    {
+      "id": "EVAL-9DC2EAA1",
+      "expected": "Miscellaneous",
+      "predicted": "Storage",
+      "mode": "live",
+      "baselinePrediction": "Miscellaneous"
+    },
+    {
+      "id": "EVAL-A094488E",
+      "expected": "HR Support",
+      "predicted": "Administrative rights",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-A17476BB",
+      "expected": "Hardware",
+      "predicted": "Internal Project",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-A19AE5B0",
+      "expected": "Hardware",
+      "predicted": "Hardware",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-A2A5DE7B",
+      "expected": "Internal Project",
+      "predicted": "Internal Project",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-A3880CB6",
+      "expected": "HR Support",
+      "predicted": "HR Support",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-A52B881B",
+      "expected": "Miscellaneous",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "Miscellaneous"
+    },
+    {
+      "id": "EVAL-A6A681A0",
+      "expected": "Hardware",
+      "predicted": "Hardware",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-A7767765",
+      "expected": "Access",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Access"
+    },
+    {
+      "id": "EVAL-A9C4DA24",
+      "expected": "Access",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Access"
+    },
+    {
+      "id": "EVAL-AB10DDBB",
+      "expected": "Hardware",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-AB18C1B4",
+      "expected": "HR Support",
+      "predicted": "HR Support",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-AB1BE702",
+      "expected": "Hardware",
+      "predicted": "Hardware",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-AB3578EB",
+      "expected": "Hardware",
+      "predicted": "Hardware",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-AB4D3F3B",
+      "expected": "Hardware",
+      "predicted": "HR Support",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-AB7B06FA",
+      "expected": "Hardware",
+      "predicted": "Hardware",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-ABCA9CC2",
+      "expected": "Storage",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Storage"
+    },
+    {
+      "id": "EVAL-ADC2CF84",
+      "expected": "Access",
+      "predicted": "Administrative rights",
+      "mode": "live",
+      "baselinePrediction": "Access"
+    },
+    {
+      "id": "EVAL-AE0205ED",
+      "expected": "HR Support",
+      "predicted": "HR Support",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-B001BC0D",
+      "expected": "HR Support",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-B00B44B3",
+      "expected": "Purchase",
+      "predicted": "Administrative rights",
+      "mode": "live",
+      "baselinePrediction": "Purchase"
+    },
+    {
+      "id": "EVAL-B0580504",
+      "expected": "Hardware",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-B0ACC199",
+      "expected": "Access",
+      "predicted": "Administrative rights",
+      "mode": "live",
+      "baselinePrediction": "Access"
+    },
+    {
+      "id": "EVAL-B225D8B0",
+      "expected": "Administrative rights",
+      "predicted": "Administrative rights",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-B2B5E87E",
+      "expected": "Hardware",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-B3E26762",
+      "expected": "Miscellaneous",
+      "predicted": "HR Support",
+      "mode": "live",
+      "baselinePrediction": "Miscellaneous"
+    },
+    {
+      "id": "EVAL-B49236A9",
+      "expected": "Hardware",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-B4F7BBFB",
+      "expected": "Storage",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Storage"
+    },
+    {
+      "id": "EVAL-B5C2AA92",
+      "expected": "HR Support",
+      "predicted": "HR Support",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-B75CCB48",
+      "expected": "Access",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Access"
+    },
+    {
+      "id": "EVAL-B894E343",
+      "expected": "HR Support",
+      "predicted": "Administrative rights",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-B918BE54",
+      "expected": "HR Support",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-B95B9B76",
+      "expected": "Miscellaneous",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Access"
+    },
+    {
+      "id": "EVAL-BB9749E6",
+      "expected": "HR Support",
+      "predicted": "HR Support",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-BC0946FB",
+      "expected": "Hardware",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-BCC5E992",
+      "expected": "Storage",
+      "predicted": "Administrative rights",
+      "mode": "live",
+      "baselinePrediction": "Administrative rights"
+    },
+    {
+      "id": "EVAL-BE02B0F2",
+      "expected": "HR Support",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-BE47E5DA",
+      "expected": "HR Support",
+      "predicted": "HR Support",
+      "mode": "live",
+      "baselinePrediction": "Access"
+    },
+    {
+      "id": "EVAL-C11F37C9",
+      "expected": "Hardware",
+      "predicted": "Hardware",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-C230774C",
+      "expected": "Hardware",
+      "predicted": "Internal Project",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-C46CEB19",
+      "expected": "Access",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Storage"
+    },
+    {
+      "id": "EVAL-C4D22EE5",
+      "expected": "Hardware",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-C58330FC",
+      "expected": "Access",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Access"
+    },
+    {
+      "id": "EVAL-C77D3A31",
+      "expected": "Hardware",
+      "predicted": "Hardware",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-C7A13307",
+      "expected": "HR Support",
+      "predicted": "HR Support",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-C843BF61",
+      "expected": "HR Support",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-C8C43365",
+      "expected": "HR Support",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-C949669E",
+      "expected": "Administrative rights",
+      "predicted": "Administrative rights",
+      "mode": "live",
+      "baselinePrediction": "Administrative rights"
+    },
+    {
+      "id": "EVAL-CA8C0B33",
+      "expected": "Purchase",
+      "predicted": "Purchase",
+      "mode": "live",
+      "baselinePrediction": "Purchase"
+    },
+    {
+      "id": "EVAL-CD2BB28A",
+      "expected": "HR Support",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-CD67CAC0",
+      "expected": "Hardware",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-CD861D38",
+      "expected": "Miscellaneous",
+      "predicted": "Internal Project",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-CE421ED8",
+      "expected": "Hardware",
+      "predicted": "Hardware",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-CE4F1D25",
+      "expected": "Access",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Miscellaneous"
+    },
+    {
+      "id": "EVAL-CE6C1FCA",
+      "expected": "HR Support",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Access"
+    },
+    {
+      "id": "EVAL-CE7FF685",
+      "expected": "Hardware",
+      "predicted": "Hardware",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-D041A9B4",
+      "expected": "Administrative rights",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Administrative rights"
+    },
+    {
+      "id": "EVAL-D3B7A535",
+      "expected": "Access",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Access"
+    },
+    {
+      "id": "EVAL-D3D4901B",
+      "expected": "Storage",
+      "predicted": "Storage",
+      "mode": "live",
+      "baselinePrediction": "Storage"
+    },
+    {
+      "id": "EVAL-D614C4FD",
+      "expected": "Internal Project",
+      "predicted": "Internal Project",
+      "mode": "live",
+      "baselinePrediction": "Internal Project"
+    },
+    {
+      "id": "EVAL-D6E9D685",
+      "expected": "Purchase",
+      "predicted": "Purchase",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-D7A389F6",
+      "expected": "HR Support",
+      "predicted": "Internal Project",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-D82FBCD7",
+      "expected": "Hardware",
+      "predicted": "Hardware",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-D8CF0072",
+      "expected": "Hardware",
+      "predicted": "Hardware",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-D995173C",
+      "expected": "Purchase",
+      "predicted": "Purchase",
+      "mode": "live",
+      "baselinePrediction": "Purchase"
+    },
+    {
+      "id": "EVAL-DB0AFB13",
+      "expected": "Miscellaneous",
+      "predicted": "HR Support",
+      "mode": "live",
+      "baselinePrediction": "Miscellaneous"
+    },
+    {
+      "id": "EVAL-DD2E2481",
+      "expected": "Purchase",
+      "predicted": "Purchase",
+      "mode": "live",
+      "baselinePrediction": "Purchase"
+    },
+    {
+      "id": "EVAL-DDB8DBB7",
+      "expected": "Hardware",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-DECC1DA5",
+      "expected": "Hardware",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-DEFA0502",
+      "expected": "HR Support",
+      "predicted": "HR Support",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-DF5E7FD8",
+      "expected": "Access",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Access"
+    },
+    {
+      "id": "EVAL-DFA60A9D",
+      "expected": "Access",
+      "predicted": "HR Support",
+      "mode": "live",
+      "baselinePrediction": "Access"
+    },
+    {
+      "id": "EVAL-E01F152C",
+      "expected": "HR Support",
+      "predicted": "HR Support",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-E081B995",
+      "expected": "HR Support",
+      "predicted": "HR Support",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-E1676989",
+      "expected": "HR Support",
+      "predicted": "HR Support",
+      "mode": "live",
+      "baselinePrediction": "Miscellaneous"
+    },
+    {
+      "id": "EVAL-E1BFE5B7",
+      "expected": "Miscellaneous",
+      "predicted": "Internal Project",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-E24BBDF8",
+      "expected": "Purchase",
+      "predicted": "Purchase",
+      "mode": "live",
+      "baselinePrediction": "Purchase"
+    },
+    {
+      "id": "EVAL-E2C9A5FB",
+      "expected": "HR Support",
+      "predicted": "HR Support",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-E310EC0E",
+      "expected": "Hardware",
+      "predicted": "Internal Project",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-E351397E",
+      "expected": "Administrative rights",
+      "predicted": "Administrative rights",
+      "mode": "live",
+      "baselinePrediction": "Administrative rights"
+    },
+    {
+      "id": "EVAL-E3852C2C",
+      "expected": "Miscellaneous",
+      "predicted": "Internal Project",
+      "mode": "live",
+      "baselinePrediction": "Internal Project"
+    },
+    {
+      "id": "EVAL-E4D0A324",
+      "expected": "Hardware",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-E5806B16",
+      "expected": "Miscellaneous",
+      "predicted": "Internal Project",
+      "mode": "live",
+      "baselinePrediction": "Internal Project"
+    },
+    {
+      "id": "EVAL-E5828763",
+      "expected": "Access",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Access"
+    },
+    {
+      "id": "EVAL-E65B9D1A",
+      "expected": "Hardware",
+      "predicted": "Internal Project",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-E84FBD49",
+      "expected": "Administrative rights",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-E8901E60",
+      "expected": "Access",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Access"
+    },
+    {
+      "id": "EVAL-EA030DDD",
+      "expected": "HR Support",
+      "predicted": "Internal Project",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-EDB1240F",
+      "expected": "Hardware",
+      "predicted": "Hardware",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-EE04D2FD",
+      "expected": "Hardware",
+      "predicted": "Hardware",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-EF45EBA3",
+      "expected": "Storage",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Storage"
+    },
+    {
+      "id": "EVAL-EF9B39D6",
+      "expected": "Access",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Access"
+    },
+    {
+      "id": "EVAL-F048864D",
+      "expected": "Purchase",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "Miscellaneous"
+    },
+    {
+      "id": "EVAL-F07DE894",
+      "expected": "Hardware",
+      "predicted": "Hardware",
+      "mode": "live",
+      "baselinePrediction": "Purchase"
+    },
+    {
+      "id": "EVAL-F0CBBC37",
+      "expected": "HR Support",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-F0EEAEEE",
+      "expected": "HR Support",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    },
+    {
+      "id": "EVAL-F1377E63",
+      "expected": "Administrative rights",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "Administrative rights"
+    },
+    {
+      "id": "EVAL-F3398F1A",
+      "expected": "HR Support",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "Internal Project"
+    },
+    {
+      "id": "EVAL-F3750CD8",
+      "expected": "Purchase",
+      "predicted": "Administrative rights",
+      "mode": "live",
+      "baselinePrediction": "Purchase"
+    },
+    {
+      "id": "EVAL-F37F7FB9",
+      "expected": "Access",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Access"
+    },
+    {
+      "id": "EVAL-F413A931",
+      "expected": "Administrative rights",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Administrative rights"
+    },
+    {
+      "id": "EVAL-F4712425",
+      "expected": "Storage",
+      "predicted": "Storage",
+      "mode": "live",
+      "baselinePrediction": "Storage"
+    },
+    {
+      "id": "EVAL-F4BAA9DC",
+      "expected": "Hardware",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "Miscellaneous"
+    },
+    {
+      "id": "EVAL-F5CEFF0B",
+      "expected": "Access",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Access"
+    },
+    {
+      "id": "EVAL-F64ADF8F",
+      "expected": "Internal Project",
+      "predicted": "Internal Project",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-F8923958",
+      "expected": "Miscellaneous",
+      "predicted": "Internal Project",
+      "mode": "live",
+      "baselinePrediction": "Miscellaneous"
+    },
+    {
+      "id": "EVAL-F9D7E7AB",
+      "expected": "HR Support",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "Administrative rights"
+    },
+    {
+      "id": "EVAL-FA954A8A",
+      "expected": "Purchase",
+      "predicted": "Purchase",
+      "mode": "live",
+      "baselinePrediction": "Purchase"
+    },
+    {
+      "id": "EVAL-FCBA48FA",
+      "expected": "Storage",
+      "predicted": "Administrative rights",
+      "mode": "live",
+      "baselinePrediction": "Storage"
+    },
+    {
+      "id": "EVAL-FD7A1AE3",
+      "expected": "Storage",
+      "predicted": "Access",
+      "mode": "live",
+      "baselinePrediction": "Storage"
+    },
+    {
+      "id": "EVAL-FE6AD080",
+      "expected": "Hardware",
+      "predicted": "Storage",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-FEC6347C",
+      "expected": "Access",
+      "predicted": "Internal Project",
+      "mode": "live",
+      "baselinePrediction": "Access"
+    },
+    {
+      "id": "EVAL-FECBAA8B",
+      "expected": "Hardware",
+      "predicted": "Miscellaneous",
+      "mode": "live",
+      "baselinePrediction": "Hardware"
+    },
+    {
+      "id": "EVAL-FED51464",
+      "expected": "HR Support",
+      "predicted": "HR Support",
+      "mode": "live",
+      "baselinePrediction": "HR Support"
+    }
+  ]
+}
