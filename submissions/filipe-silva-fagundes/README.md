@@ -8,7 +8,7 @@
 
 ## Executive Summary
 
-Construí o **Sinal**, uma aplicação web que combina diagnóstico operacional, política de automação, simulador de capacidade e uma bancada de triagem com LLM e embeddings. A principal descoberta foi uma limitação estrutural: 49,3% dos tickets fechados registram a resolução antes da primeira resposta e o dataset não contém a criação do ticket. Por isso, o produto bloqueia métricas de SLA que seriam enganosas e concentra a primeira fase em triagem assistida, um caso que pode ser validado com 47.837 tickets rotulados. Um baseline reproduzível atingiu 76,8% de acurácia em 9.569 tickets de teste; a recomendação é pilotar IA como copiloto e liberar automação somente em casos de baixo risco e alta confiança.
+Construí o **Sinal**, uma aplicação web que combina diagnóstico operacional, política de automação, simulador de capacidade e uma bancada de triagem com LLM e embeddings. A principal descoberta foi uma limitação estrutural: 49,3% dos tickets fechados registram a resolução antes da primeira resposta e o dataset não contém a criação do ticket. Por isso, o produto bloqueia métricas de SLA que seriam enganosas e concentra a primeira fase em triagem assistida, um caso que pode ser validado com 47.837 tickets rotulados. Um baseline reproduzível atingiu 76,9% de acurácia em 9.569 tickets de teste; a recomendação é pilotar IA como copiloto e liberar automação somente em casos de baixo risco e alta confiança.
 
 > **Aplicação pública:** [sinal-002.vercel.app](https://sinal-002.vercel.app)
 
@@ -24,8 +24,8 @@ O Sinal tem três áreas:
 
 O protótipo usa os dois datasets de maneira complementar:
 
-- O Dataset 1 sustenta volume, backlog, satisfação descritiva e casos históricos anonimizados.
-- O Dataset 2 sustenta a validação supervisionada da classificação em oito categorias.
+- O Dataset 1 sustenta volume, backlog, satisfação descritiva e a auditoria de qualidade operacional.
+- O Dataset 2 sustenta o baseline supervisionado e um corpus de retrieval com 200 textos, 25 por categoria, separado do holdout.
 
 ### Findings principais
 
@@ -35,15 +35,16 @@ O protótipo usa os dois datasets de maneira complementar:
 | Tempos operacionais inválidos | 1.365 de 2.769 fechados têm intervalo negativo | Não calcular SLA nem “tempo economizado observado” |
 | CSAT incompleto | Nota somente nos 2.769 tickets fechados | Evitar comparação com backlog e alegação causal |
 | Texto sintético | 100% das descrições contêm `{product_purchased}` | Validar o piloto com tickets reais antes de produção |
-| Classificação é viável, mas não perfeita | 76,8% de acurácia e macro F1 0,765 | Usar confiança, abstention e revisão humana |
-| Direitos administrativos são o maior risco do baseline | F1 0,646 | Exigir revisão humana ou limiar mais alto nessa categoria |
+| Rótulos operacionais sem sinal defensável | Texto × tipo: V=0,0346; p=0,9746 | Não inferir gargalo por canal, tipo ou prioridade nesta amostra |
+| Classificação é viável, mas não perfeita | 76,9% de acurácia e macro F1 0,766 | Usar confiança, abstention e revisão humana |
+| Direitos administrativos são o maior risco do baseline | F1 0,650 | Exigir revisão humana ou limiar mais alto nessa categoria |
 
-O maior backlog absoluto entre combinações com amostra estável aparece em **Phone × Cancellation request × Medium**: 95 de 128 tickets. Isso é um ponto de investigação, não prova de causa. As categorias foram distribuídas de forma quase uniforme e a base é sintética.
+Foram testadas as 80 combinações de canal × tipo × prioridade. O maior desvio observado (z=2,94) é compatível com acaso após considerar a família de testes (p simulado=0,234; 20 mil cenários). Status também é independente de canal (V=0,0139; p=0,771), tipo (p=0,339) e prioridade (p=0,227). Portanto, a amostra não sustenta a narrativa de um gargalo específico.
 
 ### O que automatizar
 
 - Classificação e roteamento inicial.
-- Recuperação de tickets e resoluções semelhantes.
+- Recuperação de textos rotulados semelhantes do Dataset 2.
 - Detecção de baixa confiança e encaminhamento.
 - Sugestão de prioridade.
 - Rascunho de resposta para revisão.
@@ -64,7 +65,7 @@ Ticket recebido
    ↓
 Mascaramento de PII
    ↓
-Embeddings: tema próximo + casos similares
+Embeddings: tema próximo + exemplos rotulados do Dataset 2
    ↓
 LLM: classificação, prioridade, responsável e rascunho
    ↓
@@ -121,7 +122,7 @@ Mais detalhes em [metodologia](./docs/methodology.md), [arquitetura](./docs/arch
 - Não existe timestamp de criação e os timestamps restantes são inconsistentes.
 - A satisfação só existe em tickets fechados e não permite conclusão causal.
 - Os datasets têm taxonomias e contextos diferentes; não há chave para cruzamento linha a linha.
-- O baseline estatístico é uma referência transparente. A camada LLM + embeddings precisa de uma avaliação própria com tickets reais em português.
+- O baseline estatístico é uma referência transparente. O protocolo de avaliação da camada LLM + embeddings está preparado; a execução de 300 chamadas foi deixada pendente por consumir API paga e deve ser autorizada antes do PR.
 - O cenário de ROI depende de premissas editáveis e não substitui um experimento operacional.
 
 ## Process Log — Como usei IA
@@ -136,6 +137,7 @@ O registro completo está em [process-log/README.md](./process-log/README.md). O
 - [x] Git history com evolução da solução
 - [x] Aplicação funcional e responsiva
 - [x] Integração pública com LLM e embeddings validada ao vivo
+- [x] Code review independente com Claude Code e correções registradas
 - [x] Link público — publicado na Vercel
 - [ ] Gravação curta do fluxo — recomendada antes do PR final
 

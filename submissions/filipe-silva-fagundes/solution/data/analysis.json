@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-14T14:25:40.466399+00:00",
+  "generatedAt": "2026-09-14T15:30:22.165317+00:00",
   "overview": {
     "supportRows": 8469,
     "classifiedRows": 47837,
@@ -37,6 +37,13 @@
       "metric": "100.0%",
       "title": "Texto contém placeholder",
       "detail": "Todas as descrições preservam {product_purchased}; isso confirma conteúdo sintético e exige cautela ao generalizar."
+    },
+    {
+      "id": "weak-label-signal",
+      "severity": "critical",
+      "metric": "V=0.035",
+      "title": "Texto quase não explica o tipo",
+      "detail": "Há 16 frases iniciais; 69.3% começam com o mesmo template. A associação com Ticket Type é comparável ao controle embaralhado."
     }
   ],
   "dimensions": {
@@ -1187,7 +1194,56 @@
         "etaSquared": 0.00062
       }
     ],
-    "interpretation": "Nenhum fator categórico disponível explica materialmente a variação de CSAT nesta amostra. η² abaixo de 0,01 é efeito desprezível."
+    "interpretation": "Nenhum fator categórico disponível explica materialmente a variação de CSAT nesta amostra. Todos os η² ficam abaixo de 0,015; Produto é o maior (0,013) e ainda é desprezível."
+  },
+  "associationAudit": {
+    "textTemplateVsTicketType": {
+      "cramersV": 0.0346,
+      "chiSquare": 40.532,
+      "degreesOfFreedom": 60,
+      "pValue": 0.9746
+    },
+    "shuffledControl": {
+      "cramersV": 0.0417,
+      "chiSquare": 58.917,
+      "degreesOfFreedom": 60,
+      "pValue": 0.5154
+    },
+    "firstSentenceTemplates": 16,
+    "dominantTemplateShare": 69.3,
+    "statusByDimension": [
+      {
+        "factor": "Canal",
+        "cramersV": 0.0139,
+        "chiSquare": 3.295,
+        "degreesOfFreedom": 6,
+        "pValue": 0.771
+      },
+      {
+        "factor": "Tipo",
+        "cramersV": 0.0231,
+        "chiSquare": 9.035,
+        "degreesOfFreedom": 8,
+        "pValue": 0.3394
+      },
+      {
+        "factor": "Prioridade",
+        "cramersV": 0.0219,
+        "chiSquare": 8.155,
+        "degreesOfFreedom": 6,
+        "pValue": 0.227
+      }
+    ],
+    "multipleComparisons": {
+      "combinationsTested": 80,
+      "maxObservedZ": 2.94,
+      "maxObservedLabel": "Phone · Cancellation request · Low",
+      "expectedMaxZ": 2.66,
+      "chance95UpperZ": 3.4,
+      "familyWisePValue": 0.234,
+      "simulation": "20.000 cenários binomiais sob ausência de associação, seed 42"
+    },
+    "interpretation": "O maior desvio entre 80 combinações não sobrevive ao controle de múltiplas comparações; não há concentração operacional defensável nesta amostra."
   },
   "topicDataset": {
     "rows": 47837,
@@ -1242,29 +1298,29 @@
     "trainRows": 38268,
     "testRows": 9569,
     "vocabulary": 11610,
-    "accuracy": 0.768,
-    "macroF1": 0.765,
+    "accuracy": 0.769,
+    "macroF1": 0.766,
     "perClass": [
       {
         "label": "Administrative rights",
-        "precision": 0.616,
-        "recall": 0.679,
-        "f1": 0.646,
+        "precision": 0.629,
+        "recall": 0.673,
+        "f1": 0.65,
         "support": 352
-      },
-      {
-        "label": "Internal Project",
-        "precision": 0.659,
-        "recall": 0.847,
-        "f1": 0.741,
-        "support": 424
       },
       {
         "label": "Miscellaneous",
         "precision": 0.728,
-        "recall": 0.755,
+        "recall": 0.754,
         "f1": 0.741,
         "support": 1412
+      },
+      {
+        "label": "Internal Project",
+        "precision": 0.663,
+        "recall": 0.844,
+        "f1": 0.743,
+        "support": 424
       },
       {
         "label": "HR Support",
@@ -1275,15 +1331,15 @@
       },
       {
         "label": "Hardware",
-        "precision": 0.807,
-        "recall": 0.739,
-        "f1": 0.772,
+        "precision": 0.806,
+        "recall": 0.746,
+        "f1": 0.775,
         "support": 2724
       },
       {
         "label": "Storage",
-        "precision": 0.693,
-        "recall": 0.878,
+        "precision": 0.695,
+        "recall": 0.876,
         "f1": 0.775,
         "support": 556
       },
@@ -1296,70 +1352,70 @@
       },
       {
         "label": "Purchase",
-        "precision": 0.883,
+        "precision": 0.885,
         "recall": 0.905,
-        "f1": 0.894,
+        "f1": 0.895,
         "support": 493
       }
     ],
     "confusion": {
       "Access": {
-        "Access": 1199,
+        "Access": 1198,
         "Administrative rights": 10,
         "HR Support": 49,
-        "Hardware": 84,
+        "Hardware": 85,
         "Internal Project": 18,
         "Miscellaneous": 47,
         "Purchase": 4,
         "Storage": 14
       },
       "Administrative rights": {
-        "Access": 19,
-        "Administrative rights": 239,
+        "Access": 20,
+        "Administrative rights": 237,
         "HR Support": 4,
-        "Hardware": 80,
+        "Hardware": 81,
         "Internal Project": 0,
         "Miscellaneous": 6,
         "Purchase": 1,
         "Storage": 3
       },
       "HR Support": {
-        "Access": 163,
+        "Access": 162,
         "Administrative rights": 23,
         "HR Support": 1537,
-        "Hardware": 172,
+        "Hardware": 174,
         "Internal Project": 56,
         "Miscellaneous": 127,
         "Purchase": 10,
-        "Storage": 95
+        "Storage": 94
       },
       "Hardware": {
-        "Access": 169,
-        "Administrative rights": 102,
+        "Access": 167,
+        "Administrative rights": 94,
         "HR Support": 109,
-        "Hardware": 2014,
-        "Internal Project": 42,
-        "Miscellaneous": 173,
-        "Purchase": 39,
-        "Storage": 76
+        "Hardware": 2032,
+        "Internal Project": 39,
+        "Miscellaneous": 170,
+        "Purchase": 38,
+        "Storage": 75
       },
       "Internal Project": {
         "Access": 18,
         "Administrative rights": 0,
         "HR Support": 17,
         "Hardware": 8,
-        "Internal Project": 359,
-        "Miscellaneous": 20,
+        "Internal Project": 358,
+        "Miscellaneous": 21,
         "Purchase": 0,
         "Storage": 2
       },
       "Miscellaneous": {
         "Access": 64,
-        "Administrative rights": 8,
+        "Administrative rights": 7,
         "HR Support": 88,
-        "Hardware": 92,
-        "Internal Project": 66,
-        "Miscellaneous": 1066,
+        "Hardware": 95,
+        "Internal Project": 65,
+        "Miscellaneous": 1065,
         "Purchase": 5,
         "Storage": 23
       },
@@ -1379,9 +1435,9 @@
         "HR Support": 11,
         "Hardware": 27,
         "Internal Project": 3,
-        "Miscellaneous": 14,
+        "Miscellaneous": 15,
         "Purchase": 0,
-        "Storage": 488
+        "Storage": 487
       }
     }
   },

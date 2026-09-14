@@ -53,6 +53,21 @@ type Analysis = {
     effects: Array<{ factor: string; etaSquared: number }>;
     interpretation: string;
   };
+  associationAudit: {
+    textTemplateVsTicketType: { cramersV: number; pValue: number };
+    shuffledControl: { cramersV: number; pValue: number };
+    firstSentenceTemplates: number;
+    dominantTemplateShare: number;
+    statusByDimension: Array<{ factor: string; cramersV: number; pValue: number }>;
+    multipleComparisons: {
+      combinationsTested: number;
+      maxObservedZ: number;
+      expectedMaxZ: number;
+      chance95UpperZ: number;
+      familyWisePValue: number;
+    };
+    interpretation: string;
+  };
   topicDataset: {
     rows: number;
     categories: Array<{ label: string; tickets: number; share: number }>;
@@ -79,7 +94,7 @@ type Analysis = {
 };
 
 type TriageResult = {
-  mode: "live" | "demo";
+  mode: "live" | "demo" | "guarded";
   model?: string;
   operationalType: string;
   routingTopic: string;
@@ -90,7 +105,7 @@ type TriageResult = {
   rationale: string;
   draftReply: string;
   safeguards: string[];
-  similarCases: Array<{ id: string; subject: string; type: string; similarity: number }>;
+  similarCases: Array<{ id: string; subject: string; type: string; similarity: number | null }>;
 };
 
 const formatNumber = new Intl.NumberFormat("pt-BR");
@@ -263,7 +278,7 @@ export default function SupportCockpit({ analysis }: { analysis: Analysis }) {
                   </div>
                 ))}
               </div>
-              <p className="source-note">Fonte: Dataset 1. “Backlog” = Open + Pending Customer Response. Não representa atraso de SLA.</p>
+              <p className="source-note">Fonte: Dataset 1. “Backlog” = Open + Pending Customer Response. Recortes descritivos; o teste conjunto não encontrou concentração além do acaso.</p>
             </section>
 
             <div className="two-column">
@@ -296,7 +311,7 @@ export default function SupportCockpit({ analysis }: { analysis: Analysis }) {
 
             <section className="quality-section">
               <div className="section-heading-wide">
-                <div><span className="section-kicker">Qualidade antes da velocidade</span><h2>Quatro alertas mudam a leitura do case</h2></div>
+                <div><span className="section-kicker">Qualidade antes da velocidade</span><h2>{analysis.dataQuality.length} alertas mudam a leitura do case</h2></div>
                 <button className="quiet-button" onClick={() => setView("method")}>Ver método completo</button>
               </div>
               <div className="quality-grid">
@@ -333,7 +348,7 @@ export default function SupportCockpit({ analysis }: { analysis: Analysis }) {
                   {loading ? <LoaderCircle className="spin" size={18} /> : <Sparkles size={18} />}
                   {loading ? "Analisando contexto" : "Executar triagem"}
                 </button>
-                <div className="privacy-note"><LockKeyhole size={15} /> Nomes, e-mails e números longos são mascarados no servidor. A chave nunca vai para o navegador.</div>
+                <div className="privacy-note"><LockKeyhole size={15} /> E-mail, CPF, CNPJ, RG, telefone, CEP e cartão são mascarados no servidor. A chave nunca vai para o navegador.</div>
               </section>
 
               <section className={`triage-output panel ${triageResult ? "has-result" : ""}`} aria-live="polite">
@@ -342,7 +357,7 @@ export default function SupportCockpit({ analysis }: { analysis: Analysis }) {
                 ) : (
                   <>
                     <div className="result-head">
-                      <div><span className={`mode-badge ${triageResult.mode}`}>{triageResult.mode === "live" ? "LLM + embeddings ao vivo" : "Modo demonstração"}</span><h2>{triageResult.operationalType}</h2></div>
+                      <div><span className={`mode-badge ${triageResult.mode}`}>{triageResult.mode === "live" ? "LLM + embeddings ao vivo" : triageResult.mode === "guarded" ? "Bloqueado pela política" : "Modo demonstração"}</span><h2>{triageResult.operationalType}</h2></div>
                       <Confidence value={triageResult.confidence} />
                     </div>
                     <div className="routing-line">
@@ -355,7 +370,7 @@ export default function SupportCockpit({ analysis }: { analysis: Analysis }) {
                     </div>
                     <div className="draft"><span>Resposta sugerida</span><p>{triageResult.draftReply}</p><button onClick={() => navigator.clipboard?.writeText(triageResult.draftReply)}><Check size={15} /> Copiar rascunho</button></div>
                     <div className="evidence-row">
-                      <div><span>Casos recuperados por similaridade</span>{triageResult.similarCases.map((item) => <p key={item.id}><strong>{item.id}</strong> {item.subject}<em>{Math.round(item.similarity * 100)}%</em></p>)}</div>
+                      <div><span>Exemplos rotulados recuperados</span>{triageResult.similarCases.length ? triageResult.similarCases.map((item) => <p key={item.id}><strong>{item.id}</strong> {item.subject}<em>{item.similarity === null ? "sem score no demo" : `${Math.round(item.similarity * 100)}%`}</em></p>) : <p>Nenhum texto foi enviado ao modelo.</p>}</div>
                       <div><span>Controles aplicados</span>{triageResult.safeguards.map((item) => <p key={item}><ShieldCheck size={14} /> {item}</p>)}</div>
                     </div>
                   </>
@@ -400,6 +415,15 @@ export default function SupportCockpit({ analysis }: { analysis: Analysis }) {
             <section className="panel csat-panel">
               <div><span className="section-kicker">Satisfação</span><h2>Não encontramos um driver material</h2><p>{analysis.satisfaction.interpretation}</p></div>
               <div className="effect-list">{analysis.satisfaction.effects.map((item) => <div key={item.factor}><span>{item.factor}</span><strong>{item.etaSquared.toFixed(4)}</strong></div>)}</div>
+            </section>
+            <section className="panel csat-panel">
+              <div><span className="section-kicker">Controle estatístico</span><h2>O “maior backlog” é compatível com acaso</h2><p>{analysis.associationAudit.interpretation}</p></div>
+              <div className="effect-list">
+                <div><span>Combinações testadas</span><strong>{analysis.associationAudit.multipleComparisons.combinationsTested}</strong></div>
+                <div><span>z máximo observado</span><strong>{analysis.associationAudit.multipleComparisons.maxObservedZ.toFixed(2)}</strong></div>
+                <div><span>p familiar simulado</span><strong>{analysis.associationAudit.multipleComparisons.familyWisePValue.toFixed(3)}</strong></div>
+                <div><span>Texto × tipo (V)</span><strong>{analysis.associationAudit.textTemplateVsTicketType.cramersV.toFixed(4)}</strong></div>
+              </div>
             </section>
             <section className="limits">
               <div><h3>Pode orientar decisão</h3>{analysis.methodology.usableMetrics.map((item) => <p key={item}><Check size={15} />{item}</p>)}</div>
