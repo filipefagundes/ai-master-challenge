@@ -97,7 +97,7 @@ cp .env.example .env.local
 npm run dev
 ```
 
-Configure `OPENAI_API_KEY` no `.env.local`. A chave é usada somente pela rota server-side. Sem chave, o protótipo entra em modo demonstração e identifica isso na interface.
+Configure `OPENAI_API_KEY` no `.env.local`. A chave é usada somente pela rota server-side. Sem chave, o protótipo entra em modo demonstração e identifica isso na interface. A versão pública está configurada e foi validada com LLM e embeddings ao vivo.
 
 Para reproduzir os números a partir dos ZIPs baixados do Kaggle:
 
@@ -135,6 +135,7 @@ O registro completo está em [process-log/README.md](./process-log/README.md). O
 - [x] Holdout de 9.569 exemplos, sem cherry-picking
 - [x] Git history com evolução da solução
 - [x] Aplicação funcional e responsiva
+- [x] Integração pública com LLM e embeddings validada ao vivo
 - [x] Link público — publicado na Vercel
 - [ ] Gravação curta do fluxo — recomendada antes do PR final
 

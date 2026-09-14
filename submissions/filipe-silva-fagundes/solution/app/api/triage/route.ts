@@ -135,6 +135,7 @@ export async function POST(request: Request) {
           "Você é um copiloto de suporte conservador. Responda em português do Brasil.",
           "Classifique e sugira, mas não alegue ter executado estornos, cancelamentos ou alterações.",
           "Não invente políticas. Faça uma resposta curta que reconheça o problema e explique o próximo passo.",
+          "Nunca peça senha, número completo de cartão ou documento. Se um comprovante for necessário, oriente o uso de um canal seguro.",
           "Confiança mede clareza da classificação, não certeza sobre os fatos do cliente.",
         ].join(" "),
         input: `CANAL: ${channel}\nTICKET MASCARADO: ${text}\nTEMA MAIS PRÓXIMO NO DATASET 2: ${routing[0].label} (${routing[0].similarity.toFixed(3)})\nCASOS REAIS ANONIMIZADOS DO DATASET 1:\n${context}`,

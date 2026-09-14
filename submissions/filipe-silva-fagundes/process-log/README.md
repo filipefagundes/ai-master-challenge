@@ -40,6 +40,10 @@ A proposta foi separada em automatizar, assistir e escalar. Confiança baixa, cr
 
 O protótipo foi construído como uma sala de decisão operacional. A interface foi revisada em desktop e viewport móvel. O fluxo de triagem foi executado ponta a ponta no modo demonstração e a API foi testada por HTTP.
 
+### 8. Ativação e validação ao vivo
+
+A chave foi cadastrada como Secret na Vercel, sem entrar no código ou no chat. Após novo deploy, o endpoint público retornou `mode: live`, executou embeddings, recuperou três casos anonimizados e gerou triagem estruturada com o snapshot `gpt-5.4-mini-2026-03-17`. Um caso fictício de cobrança duplicada foi classificado como reembolso de alta prioridade e permaneceu no modo assistido por envolver ação financeira.
+
 ## Onde a IA errou e como corrigi
 
 - **Interpretação dos campos de tempo:** o enunciado favorecia tratá-los como durações. A validação dos valores corrigiu a hipótese.
@@ -68,5 +72,6 @@ O protótipo foi construído como uma sala de decisão operacional. A interface 
 6. Arquitetura LLM + embeddings + política determinística.
 7. Interface operacional e simulador.
 8. Testes de compilação, API, acessibilidade e responsividade.
+9. Deploy e validação da integração LLM + embeddings em produção.
 
 O histórico Git complementa esta narrativa com os artefatos e verificações executadas.

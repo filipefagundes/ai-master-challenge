@@ -1,6 +1,6 @@
 # Deploy público
 
-Aplicação publicada em [sinal-002.vercel.app](https://sinal-002.vercel.app). Enquanto `OPENAI_API_KEY` não estiver cadastrada na Vercel, a interface opera e se identifica como modo demonstração.
+Aplicação publicada em [sinal-002.vercel.app](https://sinal-002.vercel.app). A variável `OPENAI_API_KEY` foi cadastrada como Secret em produção e a resposta ao vivo foi validada em 14/09/2026. Se o segredo for removido, a interface opera e se identifica como modo demonstração.
 
 ## Vercel
 
