@@ -1,5 +1,7 @@
 # Deploy público
 
+Aplicação publicada em [sinal-002.vercel.app](https://sinal-002.vercel.app). Enquanto `OPENAI_API_KEY` não estiver cadastrada na Vercel, a interface opera e se identifica como modo demonstração.
+
 ## Vercel
 
 1. Importe o fork do GitHub na Vercel.

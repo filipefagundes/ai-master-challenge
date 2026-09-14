@@ -10,7 +10,7 @@
 
 Construí o **Sinal**, uma aplicação web que combina diagnóstico operacional, política de automação, simulador de capacidade e uma bancada de triagem com LLM e embeddings. A principal descoberta foi uma limitação estrutural: 49,3% dos tickets fechados registram a resolução antes da primeira resposta e o dataset não contém a criação do ticket. Por isso, o produto bloqueia métricas de SLA que seriam enganosas e concentra a primeira fase em triagem assistida, um caso que pode ser validado com 47.837 tickets rotulados. Um baseline reproduzível atingiu 76,8% de acurácia em 9.569 tickets de teste; a recomendação é pilotar IA como copiloto e liberar automação somente em casos de baixo risco e alta confiança.
 
-> **Aplicação pública:** adicionar URL após o deploy
+> **Aplicação pública:** [sinal-002.vercel.app](https://sinal-002.vercel.app)
 
 ## Solução
 
@@ -135,7 +135,7 @@ O registro completo está em [process-log/README.md](./process-log/README.md). O
 - [x] Holdout de 9.569 exemplos, sem cherry-picking
 - [x] Git history com evolução da solução
 - [x] Aplicação funcional e responsiva
-- [ ] Link público — pendente de configuração do projeto de hospedagem
+- [x] Link público — publicado na Vercel
 - [ ] Gravação curta do fluxo — recomendada antes do PR final
 
 _Submissão preparada em: 14/09/2026_
