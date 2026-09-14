@@ -8,7 +8,7 @@ Aplicação publicada em [sinal-002.vercel.app](https://sinal-002.vercel.app). A
 2. Defina o Root Directory como `submissions/filipe-silva-fagundes/solution`.
 3. Adicione `OPENAI_API_KEY` nas variáveis de ambiente de Production e Preview.
 4. Opcionalmente ajuste `OPENAI_MODEL` e `OPENAI_EMBEDDING_MODEL`.
-5. Faça o deploy e teste a badge “LLM + embeddings ao vivo”.
+5. Faça o deploy e teste a badge “Arquitetura híbrida ao vivo”.
 
 Não use o prefixo `NEXT_PUBLIC_` para a chave. Ele exporia o segredo no bundle do navegador.
 

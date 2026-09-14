@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-14T15:30:22.165317+00:00",
+  "generatedAt": "2026-09-14T18:47:33.856940+00:00",
   "overview": {
     "supportRows": 8469,
     "classifiedRows": 47837,
@@ -1293,7 +1293,7 @@
   },
   "benchmark": {
     "method": "Multinomial Naive Bayes, palavras, Laplace α=1",
-    "purpose": "baseline auditável; o protótipo online usa embeddings e LLM",
+    "purpose": "roteador auditável; embeddings recuperam casos e o LLM redige",
     "split": "80/20 estratificado, seed 42",
     "trainRows": 38268,
     "testRows": 9569,

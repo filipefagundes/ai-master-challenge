@@ -36,7 +36,7 @@ Foi criado um baseline Multinomial Naive Bayes com tokenização por palavras e 
 - Acurácia: 0,769.
 - Macro F1: 0,766.
 
-Tokens fora do vocabulário de treino são ignorados na avaliação, evitando favorecer classes com menor total de tokens. O baseline não é apresentado como o modelo de produção. Ele serve para mostrar que há sinal classificável, expor diferenças entre categorias e estabelecer uma referência reproduzível para a camada de embeddings + LLM.
+Tokens fora do vocabulário de treino são ignorados na avaliação, evitando favorecer classes com menor total de tokens. O baseline começou como referência reproduzível. Após superar a camada generativa na avaliação pareada, ele passou a ser o roteador do protótipo. O script compila os mesmos priors, contagens e denominadores do treino em `data/routing-model.ts`; tokens fora do vocabulário continuam ignorados.
 
 O retrieval do protótipo usa 200 textos do treino do Dataset 2, com amostra determinística de 25 por categoria. Nenhuma `Resolution` do Dataset 1 é enviada ao LLM, pois esse campo contém texto sintético sem valor de precedente.
 
@@ -44,7 +44,7 @@ O retrieval do protótipo usa 200 textos do treino do Dataset 2, com amostra det
 
 A saída do LLM não controla a automação sozinha. Flags de risco são extraídos do texto original, antes da inferência, e uma regra determinística aplica:
 
-- `Crítica` ou confiança abaixo de 0,72: humano.
+- `Crítica` ou menor confiança entre roteamento e assistência abaixo de 0,72: humano.
 - Sinal financeiro ou cancelamento no texto original: no máximo assistido.
 - Segurança, perda de dados, jurídico ou acesso privilegiado: humano.
 - Baixa prioridade, confiança a partir de 0,90 e intenção de baixo risco confirmada por regra: elegível à automação.
@@ -63,7 +63,9 @@ O script `scripts/evaluate_live.py` selecionou 300 exemplos estratificados do me
 
 As 300 respostas retornaram `mode: live`; não houve erro de endpoint. Na comparação pareada, o baseline acertou sozinho 129 casos e a camada generativa acertou sozinha 19. O teste exato de McNemar resultou em p=2,77×10⁻²¹. A camada generativa superpredisse `Access` (89 previsões para 45 casos) e `Internal Project` (40 para 13) e subpredisse `Hardware` (30 para 85).
 
-O resultado rejeita o uso do LLM como roteador nesta configuração. A arquitetura recomendada passa a usar o Naive Bayes para `routingTopic` e mantém embeddings para recuperação e o LLM para tipo operacional, prioridade e rascunho, sempre abaixo da política determinística. A avaliação mede classificação na taxonomia do Dataset 2; não mede qualidade do rascunho, ganho de tempo, resolução ou CSAT.
+O resultado rejeita o uso do LLM como roteador nesta configuração. A arquitetura entregue foi então alterada: o Naive Bayes define `routingTopic`, embeddings recuperam apenas casos desse tema e o LLM recebe o tema como contexto imutável para sugerir tipo operacional, prioridade, responsável e rascunho, sempre abaixo da política determinística. `routingTopic` foi removido do JSON Schema da resposta gerativa.
+
+Não repetimos as 300 chamadas pagas. Um teste offline executa o roteador de produção sobre o conjunto congelado, exige igualdade com todas as previsões do baseline registradas e confirma 233/300 acertos (77,7%). A avaliação histórica continua preservada como evidência da hipótese rejeitada. Ela mede classificação na taxonomia do Dataset 2; não mede qualidade do rascunho, ganho de tempo, resolução ou CSAT.
 
 Os limiares são hipóteses de piloto. Devem ser calibrados por categoria e custo do erro.
 

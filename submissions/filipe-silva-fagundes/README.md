@@ -8,7 +8,7 @@
 
 ## Executive Summary
 
-Construí o **Sinal**, uma aplicação web que combina diagnóstico operacional, política de automação, simulador de capacidade e uma bancada de triagem com LLM e embeddings. A principal descoberta foi uma limitação estrutural: 49,3% dos tickets fechados registram a resolução antes da primeira resposta e o dataset não contém a criação do ticket. Por isso, o produto bloqueia métricas de SLA que seriam enganosas. Um baseline reproduzível atingiu 76,9% de acurácia no holdout completo. Em 300 tickets estratificados enviados à rota pública, a camada LLM + embeddings atingiu 41,0%, contra 77,7% do Naive Bayes nos mesmos exemplos. A decisão recomendada é usar o modelo simples para roteamento e reservar o LLM para redação e assistência sob política humana.
+Construí o **Sinal**, uma aplicação web que combina diagnóstico operacional, política de automação, simulador de capacidade e uma bancada de triagem híbrida. A principal descoberta foi uma limitação estrutural: 49,3% dos tickets fechados registram a resolução antes da primeira resposta e o dataset não contém a criação do ticket. Por isso, o produto bloqueia métricas de SLA que seriam enganosas. Um baseline reproduzível atingiu 76,9% de acurácia no holdout completo. Em 300 tickets estratificados enviados à rota pública, a camada inicial LLM + embeddings atingiu 41,0%, contra 77,7% do Naive Bayes nos mesmos exemplos. O achado foi convertido em produto: o Naive Bayes agora roteia, embeddings recuperam exemplos apenas dentro do tema e o LLM fica responsável por redação e assistência sob política determinística.
 
 > **Aplicação pública:** [sinal-002.vercel.app](https://sinal-002.vercel.app)
 
@@ -19,7 +19,7 @@ Construí o **Sinal**, uma aplicação web que combina diagnóstico operacional,
 O Sinal tem três áreas:
 
 1. **Operação:** backlog por combinação, canal, tipo, prioridade ou assunto; qualidade dos dados; política de automação e cenário de ROI.
-2. **Triagem IA:** recebe texto e canal, mascara dados sensíveis, recupera casos similares com embeddings, classifica com LLM e aplica uma política determinística de risco.
+2. **Triagem IA:** recebe texto e canal, mascara dados sensíveis, roteia com Naive Bayes, recupera casos do tema com embeddings e usa o LLM para prioridade, responsável e rascunho sob uma política determinística de risco.
 3. **Método:** mostra o que os dados permitem afirmar, o que foi bloqueado e os erros do classificador por categoria.
 
 O protótipo usa os dois datasets de maneira complementar:
@@ -38,7 +38,7 @@ O protótipo usa os dois datasets de maneira complementar:
 | Rótulos operacionais sem sinal defensável | Texto × tipo: V=0,0346; p=0,9746 | Não inferir gargalo por canal, tipo ou prioridade nesta amostra |
 | Classificação é viável, mas não perfeita | 76,9% de acurácia e macro F1 0,766 | Usar confiança, abstention e revisão humana |
 | Direitos administrativos são o maior risco do baseline | F1 0,650 | Exigir revisão humana ou limiar mais alto nessa categoria |
-| LLM não justifica o roteamento | 41,0% vs. 77,7% do baseline nos mesmos 300 tickets | Baseline roteia; LLM redige e assiste |
+| LLM não justifica o roteamento | 41,0% vs. 77,7% do baseline nos mesmos 300 tickets | Arquitetura corrigida: baseline roteia; LLM redige e assiste |
 
 Foram testadas as 80 combinações de canal × tipo × prioridade. O maior desvio observado (z=2,94) é compatível com acaso após considerar a família de testes (p simulado=0,234; 20 mil cenários). Status também é independente de canal (V=0,0139; p=0,771), tipo (p=0,339) e prioridade (p=0,227). Portanto, a amostra não sustenta a narrativa de um gargalo específico.
 
@@ -66,9 +66,11 @@ Ticket recebido
    ↓
 Mascaramento de PII
    ↓
-Embeddings: tema próximo + exemplos rotulados do Dataset 2
+Naive Bayes: tema de roteamento
    ↓
-LLM: classificação, prioridade, responsável e rascunho
+Embeddings: exemplos do Dataset 2 filtrados pelo tema
+   ↓
+LLM: tipo operacional, prioridade, responsável e rascunho
    ↓
 Política determinística de confiança e risco
    ├── baixo risco + alta confiança → automatizar
@@ -113,7 +115,7 @@ Mais detalhes em [metodologia](./docs/methodology.md), [arquitetura](./docs/arch
 
 1. Instrumentar criação, primeira resposta, resolução, reabertura, transferência e tempo ativo de agente.
 2. Rodar um piloto de quatro semanas com 10% da fila e grupo de controle.
-3. Usar o Naive Bayes para roteamento e manter o LLM no modo assistido para rascunhos; medir override, tempo e incidentes.
+3. Monitorar o Naive Bayes já aplicado ao roteamento e manter o LLM no modo assistido para rascunhos; medir override, tempo e incidentes.
 4. Liberar automação por política, nunca apenas pela classe prevista.
 5. Monitorar drift, custo por ticket e erros de alto risco antes de ampliar cobertura.
 
@@ -141,6 +143,7 @@ O registro completo está em [process-log/README.md](./process-log/README.md). O
 - [x] Integração pública com LLM e embeddings validada ao vivo
 - [x] Code review independente com Claude Code e correções registradas
 - [x] Avaliação da rota pública em 300 exemplos estratificados, sem erros de execução
+- [x] Arquitetura híbrida corrigida e roteador validado nos mesmos 300 exemplos sem novas chamadas pagas
 - [x] Link público — publicado na Vercel
 - [ ] Gravação curta do fluxo — recomendada antes do PR final
 

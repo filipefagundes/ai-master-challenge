@@ -77,6 +77,12 @@ Após autorização explícita para consumir a API, 300 exemplos estratificados 
 
 O resultado foi mantido mesmo sendo desfavorável à arquitetura inicial. Ele muda a recomendação: Naive Bayes deve assumir o roteamento; o LLM fica responsável pelo rascunho e assistência, onde sua flexibilidade é útil e a política humana limita o risco.
 
+### 11. Implementação da arquitetura híbrida
+
+A recomendação foi transformada em código. O script de análise passou a compilar o Naive Bayes treinado em um artefato TypeScript, usado diretamente pela rota pública. `routingTopic` foi removido do contrato do LLM; embeddings passaram a buscar exemplos somente dentro do tema previsto; o LLM ficou com tipo operacional, prioridade, responsável, justificativa e rascunho.
+
+Para evitar custo sem ganho de evidência, as 300 chamadas não foram repetidas. Um teste de regressão roda o novo roteador sobre o conjunto congelado, verifica cada previsão contra o baseline registrado e confirma 233/300 acertos (77,7%). A avaliação desfavorável da arquitetura anterior foi mantida integralmente no produto e na documentação.
+
 ## Onde a IA errou e como corrigi
 
 - **Interpretação dos campos de tempo:** o enunciado favorecia tratá-los como durações. A validação dos valores corrigiu a hipótese.
@@ -110,5 +116,6 @@ O resultado foi mantido mesmo sendo desfavorável à arquitetura inicial. Ele mu
 10. Code review independente com Claude Code.
 11. Hardening de segurança, retrieval, estatística, performance e testes.
 12. Avaliação de 300 chamadas em produção e comparação pareada com o baseline.
+13. Implementação do roteador medido, retrieval filtrado e validação offline nos mesmos 300 casos.
 
 O histórico Git complementa esta narrativa com os artefatos e verificações executadas.

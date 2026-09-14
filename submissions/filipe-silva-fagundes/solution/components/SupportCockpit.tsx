@@ -98,6 +98,8 @@ type TriageResult = {
   model?: string;
   operationalType: string;
   routingTopic: string;
+  routingSource: "naive_bayes" | "policy";
+  routingConfidence: number;
   priority: string;
   decision: "Automatizar" | "Assistir" | "Humano";
   confidence: number;
@@ -340,7 +342,7 @@ export default function SupportCockpit({ analysis, evaluation }: { analysis: Ana
             <section className="triage-intro">
               <span className="section-kicker">Protótipo funcional</span>
               <h1>Um ticket entra. A IA propõe. A política decide.</h1>
-              <p>Embeddings recuperam casos e aproximam temas. O LLM estrutura a triagem e redige uma resposta. Nenhuma decisão sensível é enviada automaticamente.</p>
+              <p>Naive Bayes roteia. Embeddings recuperam casos apenas dentro do tema. O LLM estrutura a assistência e redige uma resposta; a política controla a ação.</p>
             </section>
 
             <div className="triage-grid">
@@ -366,11 +368,11 @@ export default function SupportCockpit({ analysis, evaluation }: { analysis: Ana
                 ) : (
                   <>
                     <div className="result-head">
-                      <div><span className={`mode-badge ${triageResult.mode}`}>{triageResult.mode === "live" ? "LLM + embeddings ao vivo" : triageResult.mode === "guarded" ? "Bloqueado pela política" : "Modo demonstração"}</span><h2>{triageResult.operationalType}</h2></div>
+                      <div><span className={`mode-badge ${triageResult.mode}`}>{triageResult.mode === "live" ? "Arquitetura híbrida ao vivo" : triageResult.mode === "guarded" ? "Bloqueado pela política" : "Roteador local · modo demo"}</span><h2>{triageResult.operationalType}</h2></div>
                       <Confidence value={triageResult.confidence} />
                     </div>
                     <div className="routing-line">
-                      <ResultField label="Tema de roteamento" value={triageResult.routingTopic} />
+                      <ResultField label={triageResult.routingSource === "naive_bayes" ? `Tema · Naive Bayes ${Math.round(triageResult.routingConfidence * 100)}%` : "Tema · política"} value={triageResult.routingTopic} />
                       <ResultField label="Prioridade" value={triageResult.priority} />
                       <ResultField label="Responsável" value={triageResult.owner} />
                     </div>
@@ -389,9 +391,9 @@ export default function SupportCockpit({ analysis, evaluation }: { analysis: Ana
 
             <section className="flow-map">
               <FlowStep icon={<MessageSquareText />} title="1. Entrada" text="Texto e canal" />
-              <FlowStep icon={<Database />} title="2. Recuperação" text="Embeddings + casos" />
-              <FlowStep icon={<Sparkles />} title="3. Proposta" text="LLM estruturado" />
-              <FlowStep icon={<ShieldCheck />} title="4. Controle" text="Confiança + risco" />
+              <FlowStep icon={<Route />} title="2. Roteamento" text="Naive Bayes medido" />
+              <FlowStep icon={<Database />} title="3. Recuperação" text="Embeddings no tema" />
+              <FlowStep icon={<Sparkles />} title="4. Assistência" text="LLM + política" />
               <FlowStep icon={<UserRoundCheck />} title="5. Ação" text="Auto, assistido ou humano" />
             </section>
           </div>
@@ -427,12 +429,12 @@ export default function SupportCockpit({ analysis, evaluation }: { analysis: Ana
                 </div>
                 <div className="eval-versus">vs.</div>
                 <div className="eval-card baseline">
-                  <span>Naive Bayes nos mesmos 300</span>
+                  <span>Roteamento atual · Naive Bayes</span>
                   <strong>{(evaluation.summary.naiveBayesSame300.accuracy * 100).toFixed(1)}%</strong>
                   <small>F1 {evaluation.summary.naiveBayesSame300.macroF1.toFixed(3)} · IC95% {(evaluation.summary.naiveBayesSame300.accuracyWilson95[0] * 100).toFixed(1)}–{(evaluation.summary.naiveBayesSame300.accuracyWilson95[1] * 100).toFixed(1)}%</small>
                 </div>
               </div>
-              <p className="eval-verdict">Em pares discordantes, o baseline acertou sozinho {evaluation.summary.pairedComparison.baselineCorrectLlmWrong} tickets; a camada generativa, {evaluation.summary.pairedComparison.llmCorrectBaselineWrong}. McNemar exato p&lt;10⁻²⁰. Recomendação: baseline para roteamento; LLM para rascunho e assistência sob política.</p>
+              <p className="eval-verdict">Em pares discordantes, o baseline acertou sozinho {evaluation.summary.pairedComparison.baselineCorrectLlmWrong} tickets; a camada generativa, {evaluation.summary.pairedComparison.llmCorrectBaselineWrong}. McNemar exato p&lt;10⁻²⁰. Aplicado: Naive Bayes roteia; embeddings recuperam dentro do tema; LLM redige e assiste sob política.</p>
             </section>
             <section className="panel class-panel">
               <div className="panel-heading"><div><span className="section-kicker">Onde o modelo erra</span><h2>Desempenho por categoria</h2></div><Gauge size={24} /></div>
@@ -474,7 +476,7 @@ function RunwayRow({ tone, icon, share, label, detail }: { tone: string; icon: R
 }
 
 function Confidence({ value }: { value: number }) {
-  return <div className="confidence"><span>confiança</span><strong>{Math.round(value * 100)}%</strong></div>;
+  return <div className="confidence"><span>assistência</span><strong>{Math.round(value * 100)}%</strong></div>;
 }
 
 function ResultField({ label, value }: { label: string; value: string }) {
