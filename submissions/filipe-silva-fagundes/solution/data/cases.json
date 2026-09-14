@@ -1,0 +1,152 @@
+[
+  {
+    "id": "CASE-72F4CD93",
+    "type": "Billing inquiry",
+    "subject": "Product setup",
+    "channel": "Email",
+    "priority": "Medium",
+    "description": "My Adobe Photoshop is making strange noises and not functioning properly. I suspect there might be a hardware issue. Can you please help me with this? Thanks in advance. I've already contacted customer support multiple times, but the issue remains unresolved.",
+    "resolution": "Her person want.",
+    "rating": 5
+  },
+  {
+    "id": "CASE-08F40153",
+    "type": "Billing inquiry",
+    "subject": "Product compatibility",
+    "channel": "Chat",
+    "priority": "Medium",
+    "description": "I'm having an issue with the Microsoft Surface. Please assist. #6 * The device doesn't seem to be able to connect or connect to wifi. If this isn't the case, change the firmware to I'm experiencing this issue on multiple devices of the same model, so it seems to be a widespread problem.",
+    "resolution": "Business past watch.",
+    "rating": 2
+  },
+  {
+    "id": "CASE-FCFB36E1",
+    "type": "Billing inquiry",
+    "subject": "Payment issue",
+    "channel": "Phone",
+    "priority": "Critical",
+    "description": "I'm having an issue with the Samsung Galaxy. Please assist. I understand that no one has found this to be a quality product: • No product was placed. Please assist. I understand that no I've recently updated the firmware of my Samsung Galaxy, and the issue started happening afterward. Could it be related to the update?",
+    "resolution": "Nearly light start explain understand college wife.",
+    "rating": 5
+  },
+  {
+    "id": "CASE-ED16518C",
+    "type": "Cancellation request",
+    "subject": "Peripheral compatibility",
+    "channel": "Phone",
+    "priority": "Medium",
+    "description": "I'm having an issue with the HP Pavilion. Please assist. When I say \"my phone was hacked,\" I mean that if someone with access to my data purchased them, that means they are using me as a \" I've noticed a peculiar error message popping up on my HP Pavilion screen. It says '{error_message}'. What does it mean?",
+    "resolution": "Heavy generation visit major.",
+    "rating": 3
+  },
+  {
+    "id": "CASE-1DF14D12",
+    "type": "Cancellation request",
+    "subject": "Installation support",
+    "channel": "Chat",
+    "priority": "Critical",
+    "description": "I'm having an issue with the Xbox. Please assist. The {product_id} is your billing information. I'm getting my bill. There's no problem with this. The {product_id} is your billing I've noticed a peculiar error message popping up on my Xbox screen. It says '{error_message}'. What does it mean?",
+    "resolution": "Cold with student huge central represent feel.",
+    "rating": 3
+  },
+  {
+    "id": "CASE-2424E4DF",
+    "type": "Cancellation request",
+    "subject": "Product setup",
+    "channel": "Email",
+    "priority": "Low",
+    "description": "I'm having an issue with the Nintendo Switch Pro Controller. Please assist. This button opens a dialog that displays additional images for this product with the option to zoom in or out. Please note that some brands ship with custom I've performed a factory reset on my Nintendo Switch Pro Controller, hoping it would resolve the problem, but it didn't help.",
+    "resolution": "Until receive ever risk tonight around most goal.",
+    "rating": 3
+  },
+  {
+    "id": "CASE-5FCB5987",
+    "type": "Product inquiry",
+    "subject": "Product compatibility",
+    "channel": "Chat",
+    "priority": "Critical",
+    "description": "I'm having an issue with the Adobe Photoshop. Please assist. I'll have the items ready for shipment to my mailbox within 2-3 months. Please email me with any questions. I've tried troubleshooting steps mentioned in the user manual, but the issue persists.",
+    "resolution": "Help tend experience develop class.",
+    "rating": 2
+  },
+  {
+    "id": "CASE-8F119130",
+    "type": "Product inquiry",
+    "subject": "Product compatibility",
+    "channel": "Social media",
+    "priority": "High",
+    "description": "I'm having an issue with the Google Pixel. Please assist. I'm sorry. You need to go in with a specific quantity or add more. If the product has already been purchased, I do not recommend continuing purchase I've checked for any available software updates for my Google Pixel, but there are none.",
+    "resolution": "Tend reflect image toward size investment.",
+    "rating": 5
+  },
+  {
+    "id": "CASE-19C86A4A",
+    "type": "Product inquiry",
+    "subject": "Display issue",
+    "channel": "Phone",
+    "priority": "Low",
+    "description": "I'm having an issue with the Amazon Echo. Please assist. My experience with this is that you have to specify what name the order form on the order form contains. Here's the basic setup for each order I rely heavily on my Amazon Echo for my daily tasks, and this issue is hindering my productivity.",
+    "resolution": "Southern shake above court really three month.",
+    "rating": 4
+  },
+  {
+    "id": "CASE-6B6006DE",
+    "type": "Refund request",
+    "subject": "Product setup",
+    "channel": "Email",
+    "priority": "Critical",
+    "description": "I'm having an issue with the LG OLED. Please assist. Thank you for adding the item to your cart. I'm not happy. Get it now Buy it Now. It is a fantastic, well worth The issue I'm facing is intermittent. Sometimes it works fine, but other times it acts up unexpectedly.",
+    "resolution": "Cut child section hair.",
+    "rating": 1
+  },
+  {
+    "id": "CASE-5698CEA8",
+    "type": "Refund request",
+    "subject": "Cancellation request",
+    "channel": "Phone",
+    "priority": "Low",
+    "description": "I'm having an issue with the HP Pavilion. Please assist. \" ]]], {(product_purchased, 0))[ 1 :]}, { (product_purchased, 1, (product_p I'm worried that the issue might be hardware-related and might require repair or replacement.",
+    "resolution": "Tough technology prove key her ok point.",
+    "rating": 2
+  },
+  {
+    "id": "CASE-6FE273DC",
+    "type": "Refund request",
+    "subject": "Battery life",
+    "channel": "Phone",
+    "priority": "Critical",
+    "description": "I'm having an issue with the Apple AirPods. Please assist. * * To keep this simple, let's get back to that 'took forever' thing - the fact that these products need to be charged I've reviewed the troubleshooting steps on the official support website, but they didn't resolve the problem.",
+    "resolution": "Check green report among strategy.",
+    "rating": 3
+  },
+  {
+    "id": "CASE-FD9DE74A",
+    "type": "Technical issue",
+    "subject": "Data loss",
+    "channel": "Chat",
+    "priority": "Critical",
+    "description": "I'm encountering a software bug in the Asus ROG. Whenever I try to perform a specific action, the application crashes. Are there any updates or fixes available? Is any new feature being used? Is there any reason for such a I've already contacted customer support multiple times, but the issue remains unresolved.",
+    "resolution": "Arm science hotel identify listen become.",
+    "rating": 5
+  },
+  {
+    "id": "CASE-FF1469CD",
+    "type": "Technical issue",
+    "subject": "Network problem",
+    "channel": "Email",
+    "priority": "Medium",
+    "description": "I'm encountering a software bug in the HP Pavilion. Whenever I try to perform a specific action, the application crashes. Are there any updates or fixes available? I get the error, \"Microsoft may be violating this license.\" Should I've checked for any available software updates for my HP Pavilion, but there are none.",
+    "resolution": "Citizen look nature machine campaign military.",
+    "rating": 2
+  },
+  {
+    "id": "CASE-51355760",
+    "type": "Technical issue",
+    "subject": "Product setup",
+    "channel": "Social media",
+    "priority": "Critical",
+    "description": "I'm having an issue with the Bose QuietComfort. Please assist. What is a Brand Tops™™ ? Product lines are a great way to express your company and your unique style. From brands designed I'm not sure if this issue is specific to my device or if others have reported similar problems.",
+    "resolution": "Off when teacher prepare.",
+    "rating": 4
+  }
+]
